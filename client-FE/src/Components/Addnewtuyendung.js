@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { createTest } from "../Redux/Actions/Baitestaction";
 import { toast } from "react-toastify";
-import { BAITEST_CREATE_RESET } from "../Redux/Constants/BaitestConstants";
 import {
   Layout, theme, Form, Input, Select, Button,
   DatePicker
@@ -34,34 +31,31 @@ const Addnewtuyendung = () => {
   const [ngay_tao_bai_test, setNgaytaobaitest] = useState("");
   const [so_diem_toi_thieu, setsodiemtoithieu] = useState(0);
 
-  const dispatch = useDispatch();
 
-  const testCreate = useSelector((state) => state.testCreate);
-  const { test } = testCreate;
   const [keyword, setKeyword] = useState();
   const {
     token: { colorBgContainer },
   } = theme.useToken();
 
-  useEffect(() => {
-    if (test) {
-      toast.success("Bài kiễm tra đã được thêm", ToastObjects);
-      dispatch({ type: BAITEST_CREATE_RESET });
-      // setMabaitest("");
-      setTenbaitest("");
-      setMota("");
-      setVitri("");
-      setNgaychinhsuagannhat("");
-      setNgaytaobaitest("");
-      setsodiemtoithieu(0);
-      setthoiluong(0);
-    }
-  }, [test, dispatch]);
+  // useEffect(() => {
+  //   if (test) {
+  //     toast.success("Bài kiễm tra đã được thêm", ToastObjects);
+  //     dispatch({ type: BAITEST_CREATE_RESET });
+  //     // setMabaitest("");
+  //     setTenbaitest("");
+  //     setMota("");
+  //     setVitri("");
+  //     setNgaychinhsuagannhat("");
+  //     setNgaytaobaitest("");
+  //     setsodiemtoithieu(0);
+  //     setthoiluong(0);
+  //   }
+  // }, [test, dispatch]);
 
-  const submitHandlertest = (e) => {
-    e.preventDefault();
-    dispatch(createTest(mo_ta, ngay_chinh_sua_gan_nhat, ngay_tao_bai_test, so_diem_toi_thieu, ten_bai_test, thoi_luong, vi_tri));
-  };
+  // const submitHandlertest = (e) => {
+  //   e.preventDefault();
+  //   dispatch(createTest(mo_ta, ngay_chinh_sua_gan_nhat, ngay_tao_bai_test, so_diem_toi_thieu, ten_bai_test, thoi_luong, vi_tri));
+  // };
 
   return (
     <>
@@ -88,7 +82,7 @@ const Addnewtuyendung = () => {
                 style={{
                   padding: '0 5px',
                 }}
-              ><form onSubmit={submitHandlertest}>
+              ><form >
                   <Form.Item label="Tên bài kiểm tra">
                     <Input placeholder="Tìm kiếm" onChange={(e) => setTenbaitest(e.target.value)} style={{ width: 300, }} />
                   </Form.Item>

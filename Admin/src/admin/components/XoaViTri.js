@@ -23,15 +23,11 @@ const onFinish = (values) => {
   console.log(values);
 };
 
-function XoaUser(props) {
+function XoaViTri(props) {
   const stateUser = {
-    taiKhoan: "",
-    //matKhau: "",
-    hoTen: "",
-    email: "",
-    // soDT: "",
-    // maLoaiNguoiDung: "",
-    // maNhom: "GP01",
+    ma_vi_tri: "",
+    ten_vi_tri: "",
+    mo_ta: "",
   };
   const stateModal = {
     ModalText: "",
@@ -47,7 +43,7 @@ function XoaUser(props) {
 
   const showModal = () => {
     setVisible(true);
-    setModalText(`bạn có chắc muốn xóa vị trí ${props.taiKhoanUser} ?`);
+    setModalText(`bạn có chắc muốn xóa vị trí ${props.ma_vi_tri} ?`);
   };
 
   const handleCancel = () => {
@@ -57,7 +53,7 @@ function XoaUser(props) {
   const handleSubmit = () => {
     setModalText("đang thực hiện việc xóa vị trí...");
     setConfirmLoading(true);
-    dispatch(userActions.delete(props.taiKhoanUser, apiConstants.USER_DELETE));
+    dispatch(userActions.delete(props.ma_vi_tri, apiConstants.USER_DELETE));
     if (user_deleted) {
       setModalText("thành công !");
       setTimeout(() => {
@@ -65,8 +61,10 @@ function XoaUser(props) {
         setConfirmLoading(false);
       }, 2000);
     }
-    setModalText("Không thành công");
-    setConfirmLoading(false);
+    if (!user_deleted) {
+      setModalText("Không thành công");
+      setConfirmLoading(false);
+    }
   };
 
   return (
@@ -90,4 +88,4 @@ function XoaUser(props) {
   );
 }
 
-export default XoaUser;
+export default XoaViTri;

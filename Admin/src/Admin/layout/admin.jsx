@@ -14,8 +14,8 @@ import {
 } from "@ant-design/icons";
 import logo from "../../Home/assets/images/logo.png";
 import logoa from "../../Home/assets/images/logo-a.png";
-import ManageUser from "../pages/manageUsers";
-import ManageCourse from "../pages/manageCourses";
+import ManageUser from "../pages/QLViTri";
+import QLViTri from "../pages/QLViTri";
 
 const { Header, Sider, Content } = Layout;
 
@@ -31,10 +31,10 @@ export default function Admin() {
   const componentsSwitch = (key) => {
     switch (key) {
       case "item1":
-        return <ManageUser />;
+        return <QLViTri />;
       case "item2":
-        // return <ManageCourse />;
-        return <ManageUser />;
+        // return <QLTuyenDung />;
+        return <QLViTri />;
       default:
         break;
     }

@@ -22,15 +22,19 @@ const onFinish = (values) => {
   console.log(values);
 };
 
-function ModalUser() {
+function ModalViTri() {
   const stateUser = {
-    taiKhoan: "",
-    matKhau: "",
-    hoTen: "",
-    email: "",
-    soDT: "",
-    maLoaiNguoiDung: "",
-    maNhom: "GP01",
+    ma_vi_tri: "",
+    ten_vi_tri: "",
+    mo_ta: "",
+
+    // taiKhoan: "",
+    // matKhau: "",
+    // hoTen: "",
+    // email: "",
+    // soDT: "",
+    // maLoaiNguoiDung: "",
+    // maNhom: "GP01",
   };
   const stateModal = {
     ModalText: "",
@@ -42,7 +46,7 @@ function ModalUser() {
   const [regErr, setRegerr] = useState(registerError);
   const [inputs, setInputs] = useState(stateUser);
   const [Modals, setModals] = useState(stateModal);
-  const { taiKhoan, email, hoTen } = inputs;
+  const { ma_vi_tri, mo_ta, ten_vi_tri } = inputs;
   const { ModalText, visible, confirmLoading } = Modals;
   const dispatch = useDispatch();
   const [form] = Form.useForm();
@@ -66,10 +70,10 @@ function ModalUser() {
     setInputs((inputs) => ({ ...inputs, [name]: value }));
     // console.log(inputs);
   };
-  const handleChangeOption = (value) => {
-    // console.log(value);
-    setInputs((inputs) => ({ ...inputs, maLoaiNguoiDung: value }));
-  };
+  // const handleChangeOption = (value) => {
+  //   // console.log(value);
+  //   setInputs((inputs) => ({ ...inputs, maLoaiNguoiDung: value }));
+  // };
   const handleSubmit = (value) => {
     // dispatch(userActions.register(value, location.pathname));
     // if (registerError === '') {
@@ -110,8 +114,8 @@ function ModalUser() {
           validateMessages={validateMessages}
         >
           <Form.Item
-            name="taiKhoan"
-            value={taiKhoan}
+            name="ma_vi_tri"
+            //value={ma_vi_tri}
             initialValue=""
             label="Mã vị trí"
             rules={[{ required: true }]}
@@ -119,16 +123,16 @@ function ModalUser() {
             <Input />
           </Form.Item>
           <Form.Item
-            name="hoTen"
-            value={hoTen}
+            name="ten_vi_tri"
+            //value={ten_vi_tri}
             initialValue=""
             label="Tên vị trí"
           >
             <Input />
           </Form.Item>
           <Form.Item
-            name="email"
-            value={email}
+            name="mo_ta"
+            //value={mo_ta}
             initialValue=""
             label="Mô tả"
             //rules={[{ type: "email" }, { required: true }]}
@@ -141,4 +145,4 @@ function ModalUser() {
   );
 }
 
-export default ModalUser;
+export default ModalViTri;

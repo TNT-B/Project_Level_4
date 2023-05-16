@@ -34,9 +34,8 @@ import PageScrollTop from "./Home/elements/page-scroll-top";
 
 // Home Pages
 
-import Admin from "./Admin/layout/admin";
-import ManageUser from "./Admin/pages/manageUsers";
-import ManageCourse from "./Admin/pages/manageCourses";
+import Admin from "./admin/layout/admin";
+import QLViTri from "./admin/pages/QLViTri";
 
 const RestrictedRoute = ({ component: Component, authUser }) => (
   <Route
@@ -70,18 +69,13 @@ function App() {
             component={Admin}
           />
           <RestrictedRoute
-            path="/admin/manage-users"
+            path="/admin/quanlivitri"
             authUser={loggedIn}
-            component={ManageUser}
+            component={QLViTri}
           />
-          {/* <RestrictedRoute
-            path="/admin/manage-courses"
-            authUser={loggedIn}
-            component={ManageUser}
-          /> */}
+
           <Route path="/admin" exact component={Admin} />
-          <Route path="/admin/manage-users" exact component={ManageUser} />
-          {/* <Route path="/admin/manage-courses" exact component={ManageCourse} /> */}
+          <Route path="/admin/quanlivitri" exact component={QLViTri} />
         </Switch>
         <PageScrollTop />
       </Router>

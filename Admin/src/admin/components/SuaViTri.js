@@ -20,13 +20,9 @@ const validateMessages = {
   // },
 };
 const stateUser = {
-  taiKhoan: "",
-  //matKhau: "",
-  hoTen: "",
-  email: "",
-  // soDT: "",
-  // maLoaiNguoiDung: "",
-  // maNhom: "GP01",
+  ma_vi_tri: "",
+  ten_vi_tri: "",
+  mo_ta: "",
 };
 const stateModal = {
   ModalText: "Content of the modal",
@@ -34,40 +30,23 @@ const stateModal = {
   confirmLoading: false,
 };
 
-function SuaUser(props) {
+function SuaViTri(props) {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(props.loading);
   const [inputs, setInputs] = useState(stateUser);
   const [Modals, setModals] = useState(stateModal);
 
-  const { taiKhoan, matKhau, email, hoTen, soDT, maLoaiNguoiDung } = inputs;
+  const { ma_vi_tri, ten_vi_tri, mo_ta } = inputs;
   const { ModalText, visible, confirmLoading } = Modals;
 
   const [form] = Form.useForm();
 
-  // useEffect(() => {
-  //   setInputs({
-  //     ...inputs,
-  //     taiKhoan: props.taiKhoanUser,
-  //     matKhau: props.matKhauUser,
-  //     hoTen: props.hoTenUser,
-  //     email: props.emailUser,
-  //     soDt: props.soDTUser,
-  //     maLoaiNguoiDung: props.maLoaiNguoiDungUser,
-  //   });
-  // console.log(inputs);
-  // }, []);
-
   useEffect(() => {
     setInputs({
       ...inputs,
-      taiKhoan: props.taiKhoanUser,
-      //matKhau: props.matKhauUser,
-      hoTen: props.hoTenUser,
-      email: props.emailUser,
-      // soDT: props.soDTUser,
-      // maNhom: "GP01",
-      // maLoaiNguoiDung: props.maLoaiNguoiDungUser,
+      ma_vi_tri: props.Ma_vi_tri,
+      ten_vi_tri: props.Ten_vi_tri,
+      mo_ta: props.Mo_ta,
     });
     // console.log(inputs);
   }, [visible]);
@@ -101,11 +80,11 @@ function SuaUser(props) {
     setInputs((inputs) => ({ ...inputs, [name]: value }));
     console.log(inputs);
   };
-  const handleChangeOption = (value) => {
-    // const { name, value } = e.target;
-    setInputs((inputs) => ({ ...inputs, maLoaiNguoiDung: value }));
-    // console.log(inputs);
-  };
+  // const handleChangeOption = (value) => {
+  //   // const { name, value } = e.target;
+  //   setInputs((inputs) => ({ ...inputs, maLoaiNguoiDung: value }));
+  //   // console.log(inputs);
+  // };
   const handleSubmit = () => {
     // console.log(inputs);
     dispatch(userActions.updateuser(inputs));
@@ -151,23 +130,19 @@ function SuaUser(props) {
           validateMessages={validateMessages}
         >
           <Form.Item label="Mã vị trí" rules={[{ required: true }]}>
-            <Input name="taiKhoan" value={taiKhoan} onChange={handleChange} />
+            <Input name="ma_vi_tri" value={ma_vi_tri} onChange={handleChange} />
           </Form.Item>
-          {/* <Form.Item label="Tên vị trí" rules={[{ required: true }]}>
-            <Input.Password
-              name="matKhau"
-              value={matKhau}
+
+          <Form.Item label="Tên vị trí">
+            <Input
+              name="ten_vi_tri"
+              value={ten_vi_tri}
               onChange={handleChange}
             />
-          </Form.Item> */}
-          <Form.Item label="Tên vị trí">
-            <Input name="hoTen" value={hoTen} onChange={handleChange} />
           </Form.Item>
-          <Form.Item
-            label="Mô tả"
-            //rules={[{ type: "email" }, { required: true }]}
-          >
-            <Input name="email" value={email} onChange={handleChange} />
+
+          <Form.Item label="Mô tả">
+            <Input name="mo_ta" value={mo_ta} onChange={handleChange} />
           </Form.Item>
         </Form>
       </Modal>
@@ -175,4 +150,4 @@ function SuaUser(props) {
   );
 }
 
-export default SuaUser;
+export default SuaViTri;

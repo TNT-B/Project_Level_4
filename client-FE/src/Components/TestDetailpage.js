@@ -19,16 +19,32 @@ const TestDetailpage = () => {
     } = theme.useToken();
 
     const [data, setData] = useState();
+
     const getData = async () => {
 
         axios.get(`https://quan-ly-tuyen-dung-be.onrender.com/baitest/cauhoi?idbaitest=6438f9da2ebb1a4ee038227e`).then(res => {
-            let newData = res.data.data.map(row => { return { ma_bai_test: row.ma_bai_test, ten_bai_test: row.ten_bai_test, mo_ta: row.mo_ta, thoi_luong: row.thoi_luong, so_diem_toi_thieu: row.so_diem_toi_thieu, cau_hoi: row.cau_hoi.map(row => { return { so_diem_cau_hoi: row.so_diem_cau_hoi, noi_dung: row.noi_dung, dap_an: row.dap_an } }) } })
+            let newData = res.data.data.map(row => { return { 
+                ma_bai_test: row.ma_bai_test, 
+                ten_bai_test: row.ten_bai_test, 
+                mo_ta: row.mo_ta, 
+                thoi_luong: row.thoi_luong, 
+                so_diem_toi_thieu: row.so_diem_toi_thieu, 
+                cau_hoi: row.cau_hoi.map(item =>item.noi_dung)}
+                
+            })
             setData(newData);
+            console.log(res);
         })
     }
+   
+   
     useEffect(() => {
         getData()
     }, [])
+  
+
+
+
     return (
         <>
             <Toast />
@@ -68,8 +84,8 @@ const TestDetailpage = () => {
 
                         </div>
                         <div className="column1 middle detail">
-                            <div className="row1">{data && data.map(cau_hoi => (
-                                <div>Câu hỏi đầu tiên {cau_hoi.noi_dung}</div>
+                            <div className="row1">{data && data.map(item => ( 
+                                <div>Câu hỏi đầu tiên {item.noi_dung} </div>
                             ))}</div>
                             <div className="row1">{data && data.map(data => (
                                 <div>đáp án {data.dap_an}</div>

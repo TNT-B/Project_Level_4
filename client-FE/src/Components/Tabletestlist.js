@@ -171,7 +171,7 @@ const Tabletestlist = () => {
           </Form.Item>
 
           <Form.Item className="form-select" label="Vị trí tuyển dụng">
-            <Select placeholder="Nhập vị trí" onClick={(e) => setIdViTri(e.target.value)} options={danhsachvitri} style={{ width: 300, }} />
+            <Select placeholder="Nhập vị trí"  options={danhsachvitri} style={{ width: 300, }} />
           </Form.Item>
           <Form.Item className="form-button" >
             <Button onClick={(e) => getData(keyword, idViTri)} >Tìm Kiếm</Button>

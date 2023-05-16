@@ -40,7 +40,7 @@ const validateMessages = {
         Phone: '${label} is not a valid Phonenumber!'
     },
     number: {
-        range: '${label} must be between ${min} and ${max}',
+        range: '${label} không được để trống',
     },
     Phone: {
         range: '${label} must be at least 10 number',

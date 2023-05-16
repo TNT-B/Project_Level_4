@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import {
   Layout, theme, Form, Input, Select, Button,
   DatePicker,
-  Checkbox
+  Checkbox,
+  InputNumber, Row, Col
 } from 'antd';
 import Toast from "../Components/LoadingError/Toast";
 import Menutop from "../Components/Menutop";
@@ -22,21 +23,6 @@ const Addnewtest = () => {
     token: { colorBgContainer },
   } = theme.useToken();
 
-  const validateMessages = {
-    required: '${label} không đươc bỏ trống',
-    types: {
-        email: '${label} is not a valid email!',
-        number: '${label} is not a valid number!',
-        Phone: '${label} is not a valid Phonenumber!'
-    },
-    number: {
-        range: '${label} must be between ${min} and ${max}',
-    },
-    Phone: {
-        range: '${label} must be at least 10 number',
-    }
-
-};
   const { Header, Content, Footer } = Layout;
   const [danhsachvitri, setDanhSachViTri] = useState([]);
   const [form] = useForm();
@@ -44,6 +30,7 @@ const Addnewtest = () => {
   const [render, setRender] = useState();
   const taoCauHoi = () => {
     const danhSachCauHoi = form.getFieldValue('danhSachCauHoi') ?? [];
+
 
     form.setFieldValue('danhSachCauHoi', [...danhSachCauHoi, {
       so_diem_cau_hoi: 0,
@@ -53,23 +40,25 @@ const Addnewtest = () => {
     }])
     setRender(Math.random());
   }
-  const [taoBaiTest, setTaoBaiTest] = useState({
-    ma_bai_test:'',
-    ten_bai_test:'',
-    thoi_luong:'',
-    so_diem_toi_thieu:'',
-    mo_ta:'',
-    vi_tri:'',
-    danhSachCauHoi:danhsachcauhoi,   
-  });
-  const nhapBaitest = (e) => {
-    setTaoBaiTest({...taoBaiTest, [e.target.name]: e.target.value})
-  }
+  
+  // const nhapBaitest = (e) => {
+  //   setTaoBaiTest({ ...taoBaiTest, [e.target.name]: e.target.value })
+  // }
   const postbaitest = async (value) => {
-    console.log(taoBaiTest);
-     await axios.post(`https://quan-ly-tuyen-dung-be.onrender.com/baitest/createbaitest`,{taoBaiTest})
-     .then(response => console.log(response))
-     .catch(err => console.log(err))
+    const danhSachCauHoi = form.getFieldValue('danhSachCauHoi') ?? [];
+    const body = {
+      ma_bai_test:form.getFieldValue('ma_bai_test'),
+      mo_ta:form.getFieldValue('ma_bai_test'),
+      so_diem_toi_thieu:form.getFieldValue('so_diem_toi_thieu'),
+      ten_bai_test:form.getFieldValue('ten_bai_test'),
+      thoi_luong:form.getFieldValue('thoi_luong'),
+      ten_vi_tri:form.getFieldValue('ten_vi_tri'),
+      vi_tri:form.getFieldValue('vi_tri'),
+      danhSachCauHoi:danhSachCauHoi } 
+    await axios.post(`https://quan-ly-tuyen-dung-be.onrender.com/baitest/createbaitest`,body)
+
+      .then(response => console.log(response))
+      .catch(err => console.log(err))
   };
 
 
@@ -109,32 +98,48 @@ const Addnewtest = () => {
                 style={{
                   padding: '0 5px',
                 }}
-              ><Form form={form} onSubmitCapture={postbaitest} validateMessages={validateMessages} >
-                <Form.Item label="Mã bài kiểm tra" rules={[{required: true,},]} name='ma_bai_test'>
-                    <Input placeholder="Nhập mã bài kiểm tra" onChange={nhapBaitest} name='ma_bai_test'  />
+              ><Form form={form} onSubmitCapture={postbaitest} >
+                <Row>
+                <Col span={24}>
+                  <Form.Item label="Mã bài kiểm tra" rules={[{ required: true, message: '${label} không được để trống', },]} name='ma_bai_test'>
+                    <Input placeholder="Nhập mã bài kiểm tra"  name='ma_bai_test' />
                   </Form.Item>
-                  <Form.Item label="Tên bài kiểm tra" rules={[{required: true,},]} name='ten_bai_test'>
-                    <Input placeholder="Nhập tên bài kiểm tra" onChange={nhapBaitest} name='ten_bai_test' />
+                  </Col>
+                  <Col span={24}>
+                  <Form.Item label="Tên bài kiểm tra" rules={[{ required: true, message: '${label} không được để trống' },]} name='ten_bai_test'>
+                    <Input placeholder="Nhập tên bài kiểm tra"  name='ten_bai_test' />
                   </Form.Item>
-                  <Form.Item label="Mô tả" rules={[{required: true,},]} name='mo_ta'>
-                  <TextArea placeholder="nhập mô tả" onChange={nhapBaitest} name='mo_ta'  />
+                  </Col>
+                  <Col span={24}>
+                  <Form.Item label="Mô tả" rules={[{ required: true, message: '${label} không được để trống' },]} name='mo_ta'>
+                    <TextArea placeholder="nhập mô tả" name='mo_ta' />
                   </Form.Item>
+                  </Col>
+                  <Col span={24}>
                   <Form.Item label="Vị Trí" name='vi_tri'>
-                    <Select placeholder="Nhập vị trí" mode="multiple" options={danhsachvitri}/>
+                    <Select placeholder="Nhập vị trí" mode="multiple" options={danhsachvitri} />
                   </Form.Item>
+                  </Col>
                   {/* <Form.Item label="Ngày chỉnh sửa gần nhất">
                     <DatePicker placeholder="nhập ngày" onChange={(e) => setNgaychinhsuagannhat(e.target.value)} style={{ width: 300, }} />
                   </Form.Item>
                   <Form.Item label="Ngày tạo bài test">
                     <DatePicker placeholder="nhập ngày" onChange={(e) => setNgaytaobaitest(e.target.value)} style={{ width: 300, }} />
                   </Form.Item> */}
-                  <Form.Item label="Điểm số tối thiểu"  name='so_diem_toi_thieu'>
-                    <Input placeholder="nhập điểm" onChange={nhapBaitest} name='so_diem_toi_thieu'/>
+                  <Col span={24}>
+                  <Form.Item label="Điểm số tối thiểu" name='so_diem_toi_thieu' rules={[{ required: true, message: '${label} không được để trống' },]}>
+                    <Input placeholder="nhập điểm" name='so_diem_toi_thieu'/>
                   </Form.Item>
-                  <Form.Item label="Thời lượng" name='thoi_luong'>
-                    <Input placeholder="nhập thời lượng" onChange={nhapBaitest} name='thoi_luong'/>
+                  </Col>
+                  <Col span={24}>
+                  <Form.Item label="Thời lượng" name='thoi_luong' rules={[{ required: true, message: '${label} không được để trống' },]} >
+                    <Input placeholder="nhập thời lượng" name='thoi_luong' />
                   </Form.Item>
+                  </Col>
+                  <Col span={24}>
                   <Button htmlType="submit"> Lưu</Button>
+                  </Col>
+                  </Row>
                 </Form>
               </Content>
             </div>
@@ -144,21 +149,36 @@ const Addnewtest = () => {
             </div>
             <div className="column middle">
               <Form form={form} >
-                <Button onClick={taoCauHoi}> tạo mới câu hỏi </Button>
-                {danhsachcauhoi && danhsachcauhoi.map(cauhoi => <div>
-                  <Form.Item label="nhập nội dung câu hỏi">
-                    <TextArea placeholder="nhập nội dung câu hỏi" style={{ width: 300, }} name="noi_dung"/>
-                  </Form.Item>
-                  <Form.Item label="Điểm số">
-                    <Input placeholder="số điểm câu hỏi" style={{ width: 100, }} name="so_diem_cau_hoi" />
-                  </Form.Item>
-                  {cauhoi.dap_an.map(dap_an => <div>
-                    <Form.Item label="Đáp án">
-                      <Checkbox name="dap_an_dung" /> <p></p>
-                      <Input placeholder="nhập vào đáp án" style={{ width: 300, }} name="dap_an" />
-                    </Form.Item>
-                  </div>)}
-                </div>)}
+                <Row>
+                  <Col span={24}>
+                    <Button onClick={taoCauHoi} name='danhSachCauHoi'> tạo mới câu hỏi </Button></Col>
+                  {danhsachcauhoi && danhsachcauhoi.map((cauhoi, index) => <Row>
+                    <Col span={24}>
+                      <Form.Item label="nhập nội dung câu hỏi" name={['danhSachCauHoi', index, 'noi_dung']}>
+                        <TextArea placeholder="nhập nội dung câu hỏi" />
+                      </Form.Item>
+                    </Col>
+                    <Col span={24}>
+                      <Form.Item label="Điểm số" name={['danhSachCauHoi', index, 'so_diem_cau_hoi']}>
+                        <Input placeholder="số điểm câu hỏi" />
+                      </Form.Item>
+                    </Col>
+                    <Col span={24}>
+                      <Form.Item name={['danhSachCauHoi', index, 'dap_an_dung']}>
+                        <Checkbox.Group>
+                          <Row>
+                            {cauhoi.dap_an.map((dap_an, index_dap_an) => <Col span={24}>
+                              <Checkbox name="dap_an_dung" value={index_dap_an} /> <p></p>
+                              <Form.Item label="Đáp án" name={['danhSachCauHoi', index, 'dap_an', index_dap_an]}>
+                                <Input placeholder="nhập vào đáp án" name="dap_an" />
+                              </Form.Item>
+                            </Col>)}
+                          </Row>
+                        </Checkbox.Group>
+                      </Form.Item>
+                    </Col>
+                  </Row>)}
+                </Row>
               </Form>
 
             </div>

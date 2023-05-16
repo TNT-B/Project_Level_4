@@ -75,14 +75,9 @@ const columns = [
     )
   },
 ];
-const getRandomuserParams = (params) => ({
-  results: params.pagination?.pageSize,
-  page: params.pagination?.current,
-  ...params,
-});
 const Tabletestlist = () => {
+  const [danhsachvitri, setDanhSachViTri] = useState([]);
   const [data, setData] = useState();
-  const [vitri, setVitri] = useState();
   const [idViTri, setIdViTri] = useState("");
   const [keyword, setKeyword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -93,20 +88,15 @@ const Tabletestlist = () => {
     },
   });
 
+  const getDanhSachViTri = async () => {
+    const resp = await axios.get('https://quan-ly-tuyen-dung-be.onrender.com/vitri')
+    setDanhSachViTri(resp.data.data.danhsach.map(vitri => ({ 
+      value: vitri._id, 
+      label: vitri.ten_vi_tri })))
+  }
   useEffect(() => {
-    getData(keyword, idViTri);
-  }, [JSON.stringify(tableParams)]);
-  const handleTableChange = (pagination, filters, sorter) => {
-    setTableParams({
-      pagination,
-      filters,
-      ...sorter,
-    });
-    // `dataSource` is useless since `pageSize` changed
-    if (pagination.pageSize !== tableParams.pagination?.pageSize) {
-      setData([]);
-    }
-  };
+    getDanhSachViTri()
+  }, [])
   const getData = async (keyword, idViTri) => {
     keyword = keyword || ""
     idViTri = idViTri || ""
@@ -122,12 +112,26 @@ const Tabletestlist = () => {
           ngay_tao_bai_test: row.ngay_tao_bai_test,
           thoi_luong: row.thoi_luong,
           so_diem_toi_thieu: row.so_diem_toi_thieu,
-          vi_tri: row.vi_tri.map(item => <span style={{ border: '1px solid black', margin: '5px', padding:'8px' }}>{item.ten_vi_tri}</span> )
+          vi_tri: row.vi_tri.map(item => <span style={{ border: '1px solid black', margin: '5px', padding: '8px' }}>{item.ten_vi_tri}</span>)
         }
       })
       setData(newData);
     })
   }
+  useEffect(() => {
+    getData(keyword, idViTri);
+  }, [JSON.stringify(tableParams)]);
+  const handleTableChange = (pagination, filters, sorter) => {
+    setTableParams({
+      pagination,
+      filters,
+      ...sorter,
+    });
+    // `dataSource` is useless since `pageSize` changed
+    if (pagination.pageSize !== tableParams.pagination?.pageSize) {
+      setData([]);
+    }
+  };
   const { Header, Content, Footer } = Layout;
   const navigate = useNavigate();
   const handleChange = (value) => {
@@ -167,36 +171,8 @@ const Tabletestlist = () => {
           </Form.Item>
 
           <Form.Item className="form-select" label="Vị trí tuyển dụng">
-            <Select
-              defaultValue="FE"
-              style={{
-                width: 300,
-              }}
-              onChange={handleChange}
-              options={vitri}
-            // options={[
-            //   {
-            //     value: 'FE',
-            //     label: 'FE',
-            //   },
-            //   {
-            //     value: 'BE',
-            //     label: 'BE',
-            //   },
-            //   {
-            //     value: 'DEVOP',
-            //     label: 'DEVOP',
-            //   },
-            //   {
-            //     value: 'QA',
-            //     label: 'QA',
-            //   },
-            // ]}
-            />
+            <Select placeholder="Nhập vị trí" onClick={(e) => setIdViTri(e.target.value)} options={danhsachvitri} style={{ width: 300, }} />
           </Form.Item>
-          {/* <Form.Item className="form-input" label="Ngày tạo">
-            <Input placeholder="yyyy-mm-dd" onChange={(e) => setdate(e.target.value)} style={{ width: 300, }} />
-          </Form.Item> */}
           <Form.Item className="form-button" >
             <Button onClick={(e) => getData(keyword, idViTri)} >Tìm Kiếm</Button>
           </Form.Item>

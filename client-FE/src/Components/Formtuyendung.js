@@ -33,7 +33,7 @@ const layout = {
 
 /* eslint-disable no-template-curly-in-string */
 const validateMessages = {
-    required: '${label} is required!',
+    required: '${label} không được bỏ trống',
     types: {
         email: '${label} is not a valid email!',
         number: '${label} is not a valid number!',

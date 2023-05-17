@@ -8,3 +8,4 @@ export const apiConstants = {
     TAO_VI_TRI: `${API_HOST}/vitri/`,
     XOA_VI_TRI: `${API_HOST}/vitri`,
   };
+

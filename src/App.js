@@ -1,5 +1,13 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+// CSS
 import "./App.css";
+import "./assets/css/style.css";
+import "./assets/css/typography.css";
+import "./assets/css/shortcodes/shortcodes.css";
+import "./assets/css/style.css";
+import "./assets/css/color/color-1.css";
+
 import LandingPage from "./LandingPage/LandingPage";
 import Login from "./Auth/Login";
 import Admin from "./Admin/Admin";

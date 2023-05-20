@@ -16,7 +16,7 @@ const onFinish = (values) => {
 };
 
 function XoaViTri(props) {
-  const stateUser = {
+  const stateVitri = {
     ma_vi_tri: "",
     ten_vi_tri: "",
     mo_ta: "",
@@ -48,9 +48,9 @@ function XoaViTri(props) {
 
   return (
     <>
-      <Button type="default" onClick={showModal} danger size="small">
+      {/* <Button type="default" onClick={showModal} danger size="small">
         Xóa
-      </Button>
+      </Button> */}
       <Modal
         title={`Xóa vị trí`}
         visible={visible}

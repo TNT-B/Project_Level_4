@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import { Layout, Menu, Popover, Row, Col } from "antd";
-import USER from "../Images/profile/pic1.jpg";
+import USER from "../assets/images/profile/pic1.jpg";
 
 import {
   MenuUnfoldOutlined,
@@ -10,8 +10,8 @@ import {
   VideoCameraOutlined,
   UploadOutlined,
 } from "@ant-design/icons";
-import logo from "../Images/logo.png";
-import logoa from "../Images/logo-a.png";
+import logo from "../assets/images/logo.png";
+import logoa from "../assets/images/logo-a.png";
 import QLViTri from "./QLViTri/QLViTri";
 
 const { Header, Sider, Content } = Layout;
@@ -90,7 +90,7 @@ export default function Admin() {
                       width={31}
                       alt={"Binh"}
                     />{" "}
-                    {"user.hoTen"}
+                    {/* {"user.hoTen"} */}
                   </span>
                 </a>
               </Popover>

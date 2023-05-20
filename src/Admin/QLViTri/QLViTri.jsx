@@ -41,6 +41,7 @@ export default function QLViTri() {
       render: (text, record) => (
         <Space size="middle">
           <SuaVitri
+            Id={record._id}
             MaViTri={record.ma_vi_tri}
             TenViTri={record.ten_vi_tri}
             MoTa={record.mo_ta}

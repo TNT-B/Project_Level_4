@@ -1,6 +1,7 @@
 import { Button, Select, Modal, Form, Input, InputNumber } from "antd";
 import React, { useState, useEffect, Fragment } from "react";
 import { apiConstants } from "../../Const/api";
+import axios from "axios";
 
 const layout = {
   labelCol: { span: 8 },
@@ -9,7 +10,7 @@ const layout = {
 const validateMessages = {
   required: "${label} không được để trống!",
 };
-const stateUser = {
+const stateVitri = {
   ma_vi_tri: "",
   ten_vi_tri: "",
   mo_ta: "",
@@ -22,7 +23,7 @@ const stateModal = {
 
 function SuaViTri(props) {
   const [loading, setLoading] = useState(props.loading);
-  const [inputs, setInputs] = useState(stateUser);
+  const [inputs, setInputs] = useState(stateVitri);
   const [Modals, setModals] = useState(stateModal);
 
   const { ma_vi_tri, ten_vi_tri, mo_ta } = inputs;
@@ -66,13 +67,19 @@ function SuaViTri(props) {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setInputs((inputs) => ({ ...inputs, [name]: value }));
-    console.log(inputs);
+    //console.log(inputs);
   };
 
   const handleSubmit = () => {
-    // console.log(inputs);
+    axios
+      .put(apiConstants.CAP_NHAT_VI_TRI, { id: props.Id, data: inputs })
+      .then((response) =>
+        this.setState({ updatedAt: response.data.updatedAt })
+      );
+
     setLoading(true);
     setModals({
+      // ModalText: 'The modal will be closed after two seconds',
       confirmLoading: true,
     });
     setTimeout(() => {
@@ -80,7 +87,7 @@ function SuaViTri(props) {
         visible: false,
         confirmLoading: false,
       });
-    }, 3000);
+    }, 1000);
   };
 
   return (

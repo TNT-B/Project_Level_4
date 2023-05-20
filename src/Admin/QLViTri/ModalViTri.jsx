@@ -11,17 +11,10 @@ const layout = {
 };
 const validateMessages = {
   required: "${label} không được để trống!",
-  // types: {
-  //   email: "${label} không đúng định dạng email!",
-  //   number: "${label} không đúng định dạng số!",
-  // },
-  // number: {
-  //   range: "${label} phải bao gồm 10 số",
-  // },
 };
 
 function ModalViTri({ onSuccess }) {
-  const stateUser = {
+  const stateVitri = {
     ma_vi_tri: "",
     ten_vi_tri: "",
     mo_ta: "",
@@ -32,7 +25,7 @@ function ModalViTri({ onSuccess }) {
     confirmLoading: false,
   };
   const location = useLocation();
-  const [inputs, setInputs] = useState(stateUser);
+  const [inputs, setInputs] = useState(stateVitri);
   const [Modals, setModals] = useState(stateModal);
   const { ma_vi_tri, mo_ta, ten_vi_tri } = inputs;
   const { ModalText, visible, confirmLoading } = Modals;
@@ -109,6 +102,7 @@ function ModalViTri({ onSuccess }) {
             value={ten_vi_tri}
             initialValue=""
             label="Tên vị trí"
+            rules={[{ required: true }]}
           >
             <Input />
           </Form.Item>

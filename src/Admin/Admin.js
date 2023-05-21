@@ -13,6 +13,10 @@ import {
 import logo from "../Images/logo.png";
 import logoa from "../Images/logo-a.png";
 import QLViTri from "./QLViTri/QLViTri";
+import DanhSachDotTuyenDung from "./QLDotTuyenDung/DanhSachDotTuyenDung";
+import TaoDotTuyenDung from "./QLDotTuyenDung/TaoDotTuyenDung";
+import ChiTietDotTuyenDung from "./QLDotTuyenDung/ChiTietDotTuyenDung";
+import EditDotTuyenDung from "./QLDotTuyenDung/EditDotTuyenDung";
 
 const { Header, Sider, Content } = Layout;
 
@@ -49,9 +53,9 @@ export default function Admin() {
   return (
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className="logo">
+        <div className="logo" >
           <Link to="/admin">
-            <img src={collapsed ? logoa : logo} alt="" />
+            <img src={collapsed ? logoa : logo} alt="" style={{width:"100%"}}/>
           </Link>
         </div>
         <Menu
@@ -71,7 +75,7 @@ export default function Admin() {
       <Layout className="site-layout">
         <Header className="site-layout-background" style={{ padding: 0 }}>
           <Row>
-            <Col flex={1}>
+            <Col span={18}>
               {React.createElement(
                 collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
                 {
@@ -80,16 +84,17 @@ export default function Admin() {
                 }
               )}
             </Col>
-            <Col>
+            <Col span={3} offset={3}>
               <Popover content={content}>
                 <a href="#" className="dropdown-toggle nav-link">
                   <span className="user-img">
                     <img
                       className="rounded-circle"
                       src={USER}
-                      width={31}
+                      width={40}
                       alt={"Binh"}
-                    />{" "}
+                      style={{verticalAlign:"middle", borderRadius:"50%"}}
+                    /> &nbsp;&nbsp;
                     {"user.hoTen"}
                   </span>
                 </a>
@@ -109,6 +114,10 @@ export default function Admin() {
           {/* {//componentsSwitch(selectedMenuItem)} */}
           <Routes>
             <Route path="quan-li-vi-tri" element={<QLViTri />} />
+            <Route path="dottuyendung/create" element={<TaoDotTuyenDung />} />
+            <Route path="dottuyendung/chitiet/:idDotTuyenDung" element={<ChiTietDotTuyenDung />} />
+            <Route path="dottuyendung/edit/:idDotTuyenDung" element={<EditDotTuyenDung />} />
+            <Route path="dottuyendung" element={<DanhSachDotTuyenDung />} />
           </Routes>
         </Content>
       </Layout>

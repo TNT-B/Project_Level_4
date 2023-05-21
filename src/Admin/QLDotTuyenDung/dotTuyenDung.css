@@ -1,0 +1,10 @@
+button {
+    background-color: #191970 !important;
+    border: 0px;
+    color: white !important;
+}
+
+.ant-table-thead .ant-table-cell{
+    background-color: #191970 !important;
+    color: white !important;
+}

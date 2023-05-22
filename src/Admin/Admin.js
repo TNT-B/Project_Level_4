@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import { Layout, Menu, Popover, Row, Col } from "antd";
 import USER from "../assets/images/profile/pic1.jpg";
-
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
@@ -13,6 +12,9 @@ import {
 import logo from "../assets/images/logo.png";
 import logoa from "../assets/images/logo-a.png";
 import QLViTri from "./QLViTri/QLViTri";
+import QLBaitest from "./QLBaitest/QLbaitest";
+import Themmoibaitest from "./QLBaitest/ThemBaiTest";
+import ChiTietBaiTest from "./QLBaitest/ChiTietBaiTest";
 
 const { Header, Sider, Content } = Layout;
 
@@ -40,7 +42,7 @@ export default function Admin() {
         <Link to="/profile">Hồ sơ</Link>
       </Menu.Item>
       <Menu.Item>
-        <Link to="/" onClick={() => {}}>
+        <Link to="/" onClick={() => { }}>
           Đăng xuất
         </Link>
       </Menu.Item>
@@ -65,6 +67,9 @@ export default function Admin() {
           </Menu.Item>
           <Menu.Item key="item2" icon={<VideoCameraOutlined />}>
             <span>Quản lý tuyển dụng</span>
+          </Menu.Item>
+          <Menu.Item key="item3" icon={<VideoCameraOutlined />}>
+            <Link to="quan-li-bai_test">Quản lý bài test</Link>
           </Menu.Item>
         </Menu>
       </Sider>
@@ -109,6 +114,9 @@ export default function Admin() {
           {/* {//componentsSwitch(selectedMenuItem)} */}
           <Routes>
             <Route path="quan-li-vi-tri" element={<QLViTri />} />
+            <Route path="quan-li-bai_test" element={<QLBaitest/>} />
+            <Route path="quan-li-bai_test/create" element={<Themmoibaitest />} />
+            <Route path="quan-li-bai_test/chitiet:idbaitest" element={<ChiTietBaiTest />} />
           </Routes>
         </Content>
       </Layout>

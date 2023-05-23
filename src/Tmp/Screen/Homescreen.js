@@ -1,11 +1,11 @@
 import 'antd/dist/reset.css';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
-import Footerslider from '../Components/Footerslider';
-import Headerslider from '../Components/Headerslider';
-import Listtuyendung from '../Components/Listtuyendung';
-import Aboutus from '../Components/Aboutus';
+import Footerslider from '../../LandingPage/Footerslider';
+import Headerslider from '../../LandingPage/Headerslider';
+import Listtuyendung from '../../LandingPage/Listtuyendung';
+import Aboutus from '../../LandingPage/Aboutus';
 import React from 'react';
-import Menutop from '../Components/Menutop';
+import Menutop from '../../LandingPage/Menutop';
 
 
 const Homescreen = () => {

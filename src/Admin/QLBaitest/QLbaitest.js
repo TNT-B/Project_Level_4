@@ -112,10 +112,9 @@ const QLBaitest = () => {
         }
       })
       setData(newData);
+      
     })
   }
-
-
 
   useEffect(() => {
     getData(keyword, idViTri);
@@ -170,7 +169,7 @@ const QLBaitest = () => {
             xs: { span: 24 },
             sm: { span: 8 },
           }} >
-            <Button type='primary' className='button-to-newtest' onClick={() => navigate("create")}>Tạo mới</Button>
+            <Button type='primary' className='button-to-newtest' onClick={() => navigate("tao-moi")}>Tạo mới</Button>
           </Form.Item>
         </Col>
       </Row>

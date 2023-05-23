@@ -27,27 +27,32 @@ const EditDotTuyenDung = () => {
     const onFinish = async (values) => {
         values.ngay_bat_dau = values.ngay_bat_dau.format('YYYY-MM-DD')
         values.ngay_ket_thuc = values.ngay_ket_thuc.format('YYYY-MM-DD')
+        values._id = params.idDotTuyenDung
+        values.vi_tri = values.vi_tri.map(e => {
+            e.id_dot_tuyen_dung = params.idDotTuyenDung
+            return e
+        })
         console.log('Received values of form:', values);
-        // try {
-        //     var result = await axios({
-        //         method: "POST",
-        //         headers: {
-        //             // Authorization: `Bearer ${token}`,
-        //         },
-        //         url: `${apiConstants.TAO_DOT_TUYEN_DUNG}`,
-        //         data: values
-        //     });
-        // } catch (error) {
-        //     console.log(error.response.data.message);
-        //     message.error(error.response.data.message);
-        //     return
-        // }
-        // if (result.data.status == "true") {
-        //     navigate("/admin/dottuyendung")
-        // } else {
-        //     console.log(result.data);
-        //     message.error(result.data.message);
-        // }
+        try {
+            var result = await axios({
+                method: "PUT",
+                headers: {
+                    // Authorization: `Bearer ${token}`,
+                },
+                url: `${apiConstants.CAP_NHAT_DOT_TUYEN_DUNG}`,
+                data: values
+            });
+        } catch (error) {
+            console.log(error.response.data.message);
+            message.error(error.response.data.message);
+            return
+        }
+        if (result.data.status == "true") {
+            navigate(`/admin/dottuyendung/chitiet/${params.idDotTuyenDung}`)
+        } else {
+            console.log(result.data);
+            message.error(result.data.message);
+        }
     };
 
     const getViTri = async () => {
@@ -75,11 +80,24 @@ const EditDotTuyenDung = () => {
             data: null,
         })
         let danhsach = await res.data.data.danhsach
-        danhsach.map(e => e.ngay_bat_dau = dayjs(e.ngay_bat_dau))
-        danhsach.map(e => e.ngay_ket_thuc = dayjs(e.ngay_ket_thuc))
-        console.log(danhsach[0]);
-        await setChiTietDotTuyenDung(danhsach[0]);
-        await form.setFieldsValue(danhsach[0])
+        if (danhsach) {
+            console.log(danhsach);
+            danhsach.map(e => e.ngay_bat_dau = dayjs(e.ngay_bat_dau))
+            danhsach.map(e => e.ngay_ket_thuc = dayjs(e.ngay_ket_thuc))
+            let viTriList = danhsach[0].vi_tri.map(e => {
+                return ({
+                    id_dot_tuyen_dung: idDotTuyenDung,
+                    id_dot_tuyen_dung_vi_tri: e.id_dot_tuyen_dung_vi_tri,
+                    id_vi_tri: e.id_vi_tri,
+                    so_luong: e.so_luong
+                })
+            })
+
+            danhsach[0].vi_tri = viTriList
+            console.log(danhsach[0]);
+            await setChiTietDotTuyenDung(danhsach[0]);
+            await form.setFieldsValue(danhsach[0])
+        }
     }
 
     useEffect(() => {

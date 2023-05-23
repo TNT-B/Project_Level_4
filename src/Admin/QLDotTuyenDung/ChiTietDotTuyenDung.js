@@ -1,4 +1,4 @@
-import { Button, Col, Row, Table, Tabs, Upload } from "antd";
+import { Button, Col, Form, Input, Row, Space, Table, Tabs, Upload } from "antd";
 import { UploadOutlined } from '@ant-design/icons';
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
@@ -9,6 +9,7 @@ import './dotTuyenDung.css'
 
 const ChiTietDotTuyenDung = () => {
     const params = useParams()
+    const [form] = Form.useForm();
     const [chiTietDotTuyenDung, setChiTietDotTuyenDung] = useState({})
     const [danhSachUngVien, setDanhSachUngVien] = useState([])
     const navigate = useNavigate()
@@ -48,16 +49,16 @@ const ChiTietDotTuyenDung = () => {
                 console.log(record);
                 const fileList = [
                     {
-                      uid: '-1',
-                      name: record.ung_vien.cv?"Download":"None",
-                      status: 'done',
-                      url: record.ung_vien.cv,
+                        uid: '-1',
+                        name: record.ung_vien.cv ? "Download" : "None",
+                        status: 'done',
+                        url: record.ung_vien.cv,
                     },
-                  ]                
-                    return (<Upload fileList={fileList}>
-                        {/* <Button icon={<UploadOutlined />}></Button> */}
-                    </Upload>)
-                }
+                ]
+                return (<Upload fileList={fileList}>
+                    {/* <Button icon={<UploadOutlined />}></Button> */}
+                </Upload>)
+            }
             ,
         },
         {
@@ -102,7 +103,7 @@ const ChiTietDotTuyenDung = () => {
                         <Col span={12}>{chiTietDotTuyenDung.mo_ta_khac}</Col>
                     </Row>
                     <Row style={{ margin: "30px 0px" }}>
-                        <Button onClick={()=> navigate(`/admin/dottuyendung/edit/${params.idDotTuyenDung}`)}>Chỉnh sửa đợt tuyển dụng</Button>
+                        <Button onClick={() => navigate(`/admin/dottuyendung/edit/${params.idDotTuyenDung}`)}>Chỉnh sửa đợt tuyển dụng</Button>
                     </Row>
                 </Col>
                 <Col span={8}>
@@ -130,7 +131,7 @@ const ChiTietDotTuyenDung = () => {
                 </Col>
             </Row>
             <Row>
-                <Table columns={columnsUngVien} dataSource={danhSachUngVien} style={{marginTop:"30px"}}/>
+                <Table columns={columnsUngVien} dataSource={danhSachUngVien} style={{ marginTop: "30px" }} />
             </Row>
         </>
     )
@@ -193,6 +194,25 @@ const ChiTietDotTuyenDung = () => {
                 <h1>Chi tiết đợt tuyển dụng</h1>
             </Row>
             <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
+            {/* <Form form={form} name="validateOnly" layout="vertical" autoComplete="off">
+                <Form.Item
+                    name="name"
+                    label="Name"
+                >
+                    <Input />
+                </Form.Item>
+                <Form.Item
+                    name="age"
+                    label="Age"
+                >
+                    <Input />
+                </Form.Item>
+                <Form.Item>
+                    <Space>
+                        <Button disabled={form.isFieldsTouched(true)}>Cập nhật</Button>
+                    </Space>
+                </Form.Item>
+            </Form> */}
         </>
     )
 }

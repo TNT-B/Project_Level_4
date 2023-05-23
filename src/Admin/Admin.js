@@ -17,6 +17,7 @@ import DanhSachDotTuyenDung from "./QLDotTuyenDung/DanhSachDotTuyenDung";
 import TaoDotTuyenDung from "./QLDotTuyenDung/TaoDotTuyenDung";
 import ChiTietDotTuyenDung from "./QLDotTuyenDung/ChiTietDotTuyenDung";
 import EditDotTuyenDung from "./QLDotTuyenDung/EditDotTuyenDung";
+import CapNhatDotTuyenDung from "./QLDotTuyenDung/CapNhatDotTuyenDung";
 
 const { Header, Sider, Content } = Layout;
 
@@ -116,7 +117,7 @@ export default function Admin() {
             <Route path="quan-li-vi-tri" element={<QLViTri />} />
             <Route path="dottuyendung/create" element={<TaoDotTuyenDung />} />
             <Route path="dottuyendung/chitiet/:idDotTuyenDung" element={<ChiTietDotTuyenDung />} />
-            <Route path="dottuyendung/edit/:idDotTuyenDung" element={<EditDotTuyenDung />} />
+            <Route path="dottuyendung/edit/:idDotTuyenDung" element={<EditDotTuyenDung/>} />
             <Route path="dottuyendung" element={<DanhSachDotTuyenDung />} />
           </Routes>
         </Content>

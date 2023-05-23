@@ -1,7 +1,7 @@
 button {
-    background-color: #191970 ;
+    background-color: #191970 !important;
     border: 0px;
-    color: white ;
+    color: white !important ;
 }
 
 .ant-table-thead .ant-table-cell {

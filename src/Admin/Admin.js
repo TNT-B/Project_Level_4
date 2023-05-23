@@ -53,7 +53,7 @@ export default function Admin() {
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="logo">
           <Link to="/admin">
-            <img src={collapsed ? logoa : logo} alt="" />
+            <img src={collapsed ? logoa : logo} alt=""  style={{width:"100%"}} />
           </Link>
         </div>
         <Menu
@@ -69,14 +69,14 @@ export default function Admin() {
             <span>Quản lý tuyển dụng</span>
           </Menu.Item>
           <Menu.Item key="item3" icon={<VideoCameraOutlined />}>
-            <Link to="quan-li-bai_test">Quản lý bài test</Link>
+            <Link to="quan-li-bai-test">Quản lý bài test</Link>
           </Menu.Item>
         </Menu>
       </Sider>
       <Layout className="site-layout">
         <Header className="site-layout-background" style={{ padding: 0 }}>
           <Row>
-            <Col flex={1}>
+            <Col span={18}>
               {React.createElement(
                 collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
                 {
@@ -85,17 +85,18 @@ export default function Admin() {
                 }
               )}
             </Col>
-            <Col>
+            <Col span={3} offset={3}>
               <Popover content={content}>
                 <a href="#" className="dropdown-toggle nav-link">
                   <span className="user-img">
                     <img
                       className="rounded-circle"
                       src={USER}
-                      width={31}
+                      width={40}
                       alt={"Binh"}
-                    />{" "}
-                    {/* {"user.hoTen"} */}
+                      style={{verticalAlign:"middle", borderRadius:"50%"}}
+                    />&nbsp;&nbsp;
+                     {"user.hoTen"} 
                   </span>
                 </a>
               </Popover>
@@ -114,9 +115,9 @@ export default function Admin() {
           {/* {//componentsSwitch(selectedMenuItem)} */}
           <Routes>
             <Route path="quan-li-vi-tri" element={<QLViTri />} />
-            <Route path="quan-li-bai_test" element={<QLBaitest/>} />
-            <Route path="quan-li-bai_test/create" element={<Themmoibaitest />} />
-            <Route path="quan-li-bai_test/chitiet:idbaitest" element={<ChiTietBaiTest />} />
+            <Route path="quan-li-bai-test" element={<QLBaitest/>} />
+            <Route path="quan-li-bai-test/tao-moi" element={<Themmoibaitest />} />
+            <Route path="quan-li-bai-test/chitiet:id" element={<ChiTietBaiTest />} />
           </Routes>
         </Content>
       </Layout>

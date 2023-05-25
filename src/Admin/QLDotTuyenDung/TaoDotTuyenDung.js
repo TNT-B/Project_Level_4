@@ -1,11 +1,14 @@
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
-import { Button, Col, DatePicker, Form, Input, Row, Select, Space, message } from 'antd';
+import { Breadcrumb, Button, Col, DatePicker, Form, Input, Row, Select, Space, message } from 'antd';
 import { apiConstants } from '../../Const/api';
 import axios from "axios";
 import { useEffect, useState } from 'react';
 import { Option } from 'antd/es/mentions';
 import TextArea from 'antd/es/input/TextArea';
 import { useNavigate } from 'react-router';
+import './dotTuyenDung.css';
+import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 const TaoDotTuyenDung = () => {
     const [viTriList, setViTriList] = useState([])
@@ -20,26 +23,32 @@ const TaoDotTuyenDung = () => {
         ],
     };
     const onFinish = async (values) => {
+
+        if(values.ngay_bat_dau > values.ngay_ket_thuc){
+            message.error("Ngày bắt đầu phải sớm hơn ngày kết thúc");
+            return
+        }
+
         values.ngay_bat_dau = values.ngay_bat_dau.format('YYYY-MM-DD')
         values.ngay_ket_thuc = values.ngay_ket_thuc.format('YYYY-MM-DD')
         console.log('Received values of form:', values);
-       try {
-        var result = await axios({
-            method: "POST",
-            headers: {
-              // Authorization: `Bearer ${token}`,
-            },
-            url: `${apiConstants.TAO_DOT_TUYEN_DUNG}`,
-            data: values
-        });
-       } catch (error) {
+        try {
+            var result = await axios({
+                method: "POST",
+                headers: {
+                    // Authorization: `Bearer ${token}`,
+                },
+                url: `${apiConstants.TAO_DOT_TUYEN_DUNG}`,
+                data: values
+            });
+        } catch (error) {
             console.log(error.response.data.message);
             message.error(error.response.data.message);
-        return
-       }
+            return
+        }
         console.log("hello");
         console.log(result);
-        if(result.data.status == "true"){
+        if (result.data.status == "true") {
             navigate("/admin/dottuyendung")
         } else {
             console.log(result.data);
@@ -69,8 +78,15 @@ const TaoDotTuyenDung = () => {
     return (
         <>
             <Row>
+                <Breadcrumb>
+                    <Breadcrumb.Item><Link to={'/admin'} >Trang chủ</Link></Breadcrumb.Item>
+                    <Breadcrumb.Item><Link to={'/admin/dottuyendung'} >Danh sách đợt tuyển dụng</Link></Breadcrumb.Item>
+                    <Breadcrumb.Item><Link to={'/admin/dottuyendung/create'} >Tạo đợt tuyển dụng</Link></Breadcrumb.Item>
+                </Breadcrumb>
+            </Row>
+            <Row>
                 <Col span={24}>
-                    <h1>Tạo đợt tuyển dụng</h1>
+                    <h1>TẠO ĐỢT TUYỂN DỤNG</h1>
                 </Col>
             </Row>
             <Row>
@@ -86,18 +102,18 @@ const TaoDotTuyenDung = () => {
                 >
                     <Row>
                         <Col span={12}>
-                            <Form.Item name="ten" label="Tên đợt tuyển dụng" rules={[{ required: true, message:"Thiếu tên đợt tuyển dụng" }]}>
+                            <Form.Item name="ten" label="Tên đợt tuyển dụng" rules={[{ required: true, message: "Thiếu tên đợt tuyển dụng" }]}>
                                 <Input />
                             </Form.Item>
                             <Row>
                                 <Col span={11}>
                                     <Form.Item name="ngay_bat_dau" label="Ngày bắt đầu" rules={[{ required: true }]} {...config}>
-                                        <DatePicker style={{width:"100%"}}/>
+                                        <DatePicker style={{ width: "100%" }} />
                                     </Form.Item>
                                 </Col>
                                 <Col span={11} offset={2}>
                                     <Form.Item name="ngay_ket_thuc" label="Ngày kết thúc" rules={[{ required: true }]} {...config}>
-                                        <DatePicker style={{width:"100%"}}/>
+                                        <DatePicker style={{ width: "100%" }} />
                                     </Form.Item>
                                 </Col>
                             </Row>
@@ -106,7 +122,7 @@ const TaoDotTuyenDung = () => {
                                 <TextArea />
                             </Form.Item>
                         </Col>
-                        <Col span={10} offset={1} style={{paddingTop:"30px"}}>
+                        <Col span={10} offset={1} style={{ paddingTop: "30px" }}>
                             <Form.List name="vi_tri" >
                                 {(fields, { add, remove }) => (
                                     <>
@@ -126,7 +142,7 @@ const TaoDotTuyenDung = () => {
                                                     rules={[
                                                         {
                                                             required: true,
-                                                            message: 'Missing first name',
+                                                            message: 'Thiếu vị trí tuyển dụng',
                                                         },
                                                     ]}
                                                 >

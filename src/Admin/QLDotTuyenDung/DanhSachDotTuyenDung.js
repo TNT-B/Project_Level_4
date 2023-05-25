@@ -1,14 +1,16 @@
-import { Button, Checkbox, Col, Form, Input, Popconfirm, Row, Space, message, Table, Tag } from 'antd';
+import { Button, Checkbox, Col, Form, Input, Popconfirm, Row, Space, message, Table, Tag, Breadcrumb } from 'antd';
 import { useEffect, useState } from 'react';
 import axios from "axios";
 import { apiConstants } from '../../Const/api';
 import { formatDate } from '../../Const/functions';
 import moment from 'moment';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import './dotTuyenDung.css';
+import { Link } from 'react-router-dom';
 
 const DanhSachDotTuyenDung = () => {
   const [danhSachDotTuyenDung, setDanhSachDotTuyenDung] = useState([]);
+  // const location = useLocation();
   const [searchTerm, setSearchTerm] = useState('')
   const [selected, setSelected] = useState([])
   const navigate = useNavigate()
@@ -21,10 +23,16 @@ const DanhSachDotTuyenDung = () => {
       },
       url: `${apiConstants.DANH_SACH_DOT_TUYEN_DUNG}?term=${searchTerm}`,
       data: null,
-    })
-    console.log(`${apiConstants.DANH_SACH_DOT_TUYEN_DUNG}?term=${searchTerm}`);
+    }) 
+
+    console.log(res);
+
+    if(res.data.status == "false"){
+      message.error("Không tìm thấy danh sách đợt tuyển dụng tương ứng")
+      setDanhSachDotTuyenDung([])
+      return
+    }
     let danhsach = await res.data.data.danhsach
-    console.log(danhsach);
     danhsach.map(e => e.ngay_bat_dau = formatDate(e.ngay_bat_dau))
     danhsach.map(e => e.ngay_ket_thuc = formatDate(e.ngay_ket_thuc))
     await setDanhSachDotTuyenDung(danhsach);
@@ -97,18 +105,18 @@ const DanhSachDotTuyenDung = () => {
     },
   ];
 
-  const rowSelection = {
-    onChange: (selectedRowKeys, selectedRows) => {
-      // console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-      let newSelected = selectedRows.map(e => { return e._id })
-      setSelected(newSelected)
-    },
-    getCheckboxProps: (record) => ({
-      disabled: record.name === 'Disabled User',
-      // Column configuration not to be checked
-      name: record.name,
-    }),
-  };
+  // const rowSelection = {
+  //   onChange: (selectedRowKeys, selectedRows) => {
+  //     // console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+  //     let newSelected = selectedRows.map(e => { return e._id })
+  //     setSelected(newSelected)
+  //   },
+  //   getCheckboxProps: (record) => ({
+  //     // disabled: record.name === 'Disabled User',
+  //     // Column configuration not to be checked
+  //     name: record.name,
+  //   }),
+  // };
 
 
   useEffect(() => {
@@ -118,60 +126,55 @@ const DanhSachDotTuyenDung = () => {
   return (
     <>
       <Row>
-        <Col span={24}>
-          <Form
-            name="basic"
-            labelCol={{
-              span: 8,
-            }}
-            wrapperCol={{
-              span: 16,
-            }}
-            style={{
-              maxWidth: 1000,
-            }}
-            initialValues={{
-              remember: true,
-            }}
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
-            autoComplete="off"
-          >
-            <Row>
-              <Col span={24}>
-                <h1 style={{ fontSize: "25px", color: "#191970", marginBottom:"40px", marginTop:"10px"}}>DANH SÁCH ĐỢT TUYỂN DỤNG</h1>
-              </Col>
-            </Row>
-          </Form>
-        </Col>
+        <Breadcrumb>
+          <Breadcrumb.Item><Link to={'/admin'} >Trang chủ</Link></Breadcrumb.Item>
+          <Breadcrumb.Item><Link to={'/admin/dottuyendung'} >Danh sách đợt tuyển dụng</Link></Breadcrumb.Item>
+        </Breadcrumb>
       </Row>
       <Row>
-        <Col span={6}>
-          <Form.Item
-            name="searchTerm"
-            labelCol={{
-              xs: { span: 24 },
-              sm: { span: 8 },
-            }}
-          >
-            <Input placeholder="Từ khóa tìm kiếm"/>
-          </Form.Item>
+        <Col span={24}>
+          <h1 style={{ fontSize: "25px", color: "#191970", marginBottom: "40px", marginTop: "10px" }}>DANH SÁCH ĐỢT TUYỂN DỤNG</h1>
         </Col>
-        <Col span={2}>
-          <Form.Item
-            wrapperCol={{
-              offset: 2,
-              span: 16,
-            }}
-          >
-            <Button type="primary" htmlType="submit" >
-              Tìm kiếm
-            </Button>
-          </Form.Item>
-        </Col>
-        <Col span={4} style={{ display: "flex" }}>
-          {/* <Space> */}
-            <Button  type="primary"  onClick={() => navigate("create")}>+ Thêm mới</Button>
+      </Row>
+      <Form
+        name="basic"
+        labelCol={{
+          span: 8,
+        }}
+        wrapperCol={{
+          span: 16,
+        }}
+
+        initialValues={{
+          remember: true,
+        }}
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+        autoComplete="off"
+      >
+        <Row>
+          <Col span={10}>
+            <Form.Item
+              name="searchTerm"
+              style={{ width: "100% !important" }}
+              wrapperCol={{
+                sm: 23
+              }}
+            >
+              <Input placeholder="Từ khóa tìm kiếm" style={{ width: "100% !important" }} />
+            </Form.Item>
+          </Col>
+          <Col span={6}>
+            <Form.Item
+            >
+              <Button type="primary" htmlType="submit" >
+                Tìm kiếm
+              </Button>
+            </Form.Item>
+          </Col>
+          <Col span={8} style={{ display: "flex", justifyContent: "flex-end" }}>
+            {/* <Space> */}
+            <Button type="primary" onClick={() => navigate("create")}>+ Thêm mới</Button>
             {/* <Popconfirm
               title="Bạn muốn xóa đợt tuyển dụng này?"
               okText="Yes"
@@ -181,19 +184,20 @@ const DanhSachDotTuyenDung = () => {
             >
               <Button>Xóa</Button>
             </Popconfirm> */}
-          {/* </Space> */}
-        </Col>
-      </Row>
+            {/* </Space> */}
+          </Col>
+        </Row>
+      </Form>
       <Row style={{ marginTop: "30px" }}>
         <Col span={24}>
           <Table
             columns={columns}
             dataSource={danhSachDotTuyenDung}
             rowKey={(record) => record._id}
-            rowSelection={{
-              type: 'checkbox',
-              ...rowSelection,
-            }}
+          // rowSelection={{
+          //   // type: 'checkbox',
+          //   ...rowSelection,
+          // }}
           />
         </Col>
       </Row>

@@ -1,5 +1,5 @@
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
-import { Button, Col, DatePicker, Form, Input, Row, Select, Space, message } from 'antd';
+import { Breadcrumb, Button, Col, DatePicker, Form, Input, Row, Select, Space, message } from 'antd';
 import { apiConstants } from '../../Const/api';
 import axios from "axios";
 import { useEffect, useState } from 'react';
@@ -8,6 +8,8 @@ import TextArea from 'antd/es/input/TextArea';
 import { useNavigate, useParams } from 'react-router';
 import { formatDate } from '../../Const/functions';
 import dayjs from 'dayjs';
+import './dotTuyenDung.css';
+import { Link } from 'react-router-dom';
 
 const EditDotTuyenDung = () => {
     const [viTriList, setViTriList] = useState([])
@@ -25,12 +27,22 @@ const EditDotTuyenDung = () => {
         ],
     };
     const onFinish = async (values) => {
+        if(values.ngay_bat_dau > values.ngay_ket_thuc){
+            message.error("Ngày bắt đầu phải sớm hơn ngày kết thúc");
+            return
+        }
+
         values.ngay_bat_dau = values.ngay_bat_dau.format('YYYY-MM-DD')
         values.ngay_ket_thuc = values.ngay_ket_thuc.format('YYYY-MM-DD')
-        values._id = params.idDotTuyenDung
+        values.id_dot_tuyen_dung = params.idDotTuyenDung
         values.vi_tri = values.vi_tri.map(e => {
-            e.id_dot_tuyen_dung = params.idDotTuyenDung
-            return e
+            let temp = {
+                id_dot_tuyen_dung_vi_tri: e.id_dot_tuyen_dung_vi_tri,
+                id_dot_tuyen_dung: params.idDotTuyenDung,
+                id_vi_tri: e.id_vi_tri,
+                so_luong: e.so_luong
+            }
+            return temp
         })
         console.log('Received values of form:', values);
         try {
@@ -43,7 +55,7 @@ const EditDotTuyenDung = () => {
                 data: values
             });
         } catch (error) {
-            console.log(error.response.data.message);
+            console.log(error.response.data);
             message.error(error.response.data.message);
             return
         }
@@ -108,8 +120,16 @@ const EditDotTuyenDung = () => {
     return (
         <>
             <Row>
+                <Breadcrumb>
+                    <Breadcrumb.Item><Link to={'/admin'} >Trang chủ</Link></Breadcrumb.Item>
+                    <Breadcrumb.Item><Link to={'/admin/dottuyendung'} >Danh sách đợt tuyển dụng</Link></Breadcrumb.Item>
+                    <Breadcrumb.Item><Link to={`/admin/dottuyendung/chitiet/${params.idDotTuyenDung}`} >Chi tiết đợt tuyển dụng</Link></Breadcrumb.Item>
+                    <Breadcrumb.Item><Link to={`/admin/dottuyendung/edit/${params.idDotTuyenDung}`} >Chỉnh sửa đợt tuyển dụng</Link></Breadcrumb.Item>
+                </Breadcrumb>
+            </Row>
+            <Row>
                 <Col span={24}>
-                    <h1>Chỉnh sửa đợt tuyển dụng</h1>
+                    <h1>CHỈNH SỬA ĐỢT TUYỂN DỤNG</h1>
                 </Col>
             </Row>
             <Row>
@@ -167,7 +187,7 @@ const EditDotTuyenDung = () => {
                                                     rules={[
                                                         {
                                                             required: true,
-                                                            message: 'Missing first name',
+                                                            message: 'Thiếu vị trí tuyển dụng',
                                                         },
                                                     ]}
                                                 >
@@ -189,7 +209,7 @@ const EditDotTuyenDung = () => {
                                                         },
                                                     ]}
                                                 >
-                                                    <Input placeholder="Số lượng" />
+                                                    <Input placeholder="Số lượng" type='number'/>
                                                 </Form.Item>
                                                 <MinusCircleOutlined onClick={() => remove(name)} />
                                             </Space>
@@ -204,7 +224,7 @@ const EditDotTuyenDung = () => {
                             </Form.List>
                             <Form.Item>
                                 <Button type="primary" htmlType="submit">
-                                    Submit
+                                    Cập nhật
                                 </Button>
                             </Form.Item>
                         </Col>

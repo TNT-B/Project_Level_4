@@ -1,4 +1,4 @@
-import { Button, Col, Form, Input, Row, Space, Table, Tabs, Upload } from "antd";
+import { Breadcrumb, Button, Col, Form, Input, Row, Space, Table, Tabs, Upload } from "antd";
 import { UploadOutlined } from '@ant-design/icons';
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
@@ -6,6 +6,8 @@ import { apiConstants } from "../../Const/api";
 import axios from "axios";
 import { formatDate } from "../../Const/functions";
 import './dotTuyenDung.css'
+import YeuCauUngTuyen from "./Test";
+import { Link } from "react-router-dom";
 
 const ChiTietDotTuyenDung = () => {
     const params = useParams()
@@ -46,7 +48,6 @@ const ChiTietDotTuyenDung = () => {
             dataIndex: ['ung_vien', 'cv'],
             key: ['ung_vien', 'cv'],
             render: (_, record) => {
-                console.log(record);
                 const fileList = [
                     {
                         uid: '-1',
@@ -62,7 +63,12 @@ const ChiTietDotTuyenDung = () => {
             ,
         },
         {
-            title: 'Kết quả test đầu vào',
+            title: 'Thời gian test',
+            dataIndex: ['ung_vien', 'thoi_gian_lam_test'],
+            key: ['ung_vien', 'thoi_gian_lam_test'],
+        },
+        {
+            title: 'Kết quả test',
             dataIndex: ['ung_vien', 'diem_lam_test_dau_vao'],
             key: ['ung_vien', 'diem_lam_test_dau_vao'],
         },
@@ -80,33 +86,42 @@ const ChiTietDotTuyenDung = () => {
             title: 'Kết quả phỏng vấn',
             dataIndex: ['ung_vien', 'ket_qua_pv'],
             key: ['ung_vien', 'ket_qua_pv'],
-        }
+        },
+        {
+            title: 'Thao tác',
+            key: 'action',
+            render: (_, record) => (
+                <Button type="primary" onClick={() => navigate(`chitiet/${record._id}`)}>
+                    Edit
+                </Button>
+            ),
+        },
     ];
     const dotTuyenDungComponent = (
         <>
             <Row>
                 <Col span={12}>
                     <Row style={{ margin: "20px 0px" }}>
-                        <Col span={10}>Tên đợt tuyển dụng:</Col>
+                        <Col span={10}><b>Tên đợt tuyển dụng:</b></Col>
                         <Col span={12}>{chiTietDotTuyenDung.ten}</Col>
                     </Row>
                     <Row style={{ margin: "20px 0px" }}>
-                        <Col span={10}>Ngày bắt đầu:</Col>
+                        <Col span={10}><b>Ngày bắt đầu:</b></Col>
                         <Col span={12}>{chiTietDotTuyenDung.ngay_bat_dau}</Col>
                     </Row>
                     <Row style={{ margin: "20px 0px" }}>
-                        <Col span={10}>Ngày kết thúc:</Col>
+                        <Col span={10}><b>Ngày kết thúc:</b></Col>
                         <Col span={12}>{chiTietDotTuyenDung.ngay_ket_thuc}</Col>
                     </Row>
                     <Row style={{ margin: "20px 0px" }}>
-                        <Col span={10}>Mô tả:</Col>
+                        <Col span={10}><b>Mô tả:</b></Col>
                         <Col span={12}>{chiTietDotTuyenDung.mo_ta_khac}</Col>
                     </Row>
                     <Row style={{ margin: "30px 0px" }}>
                         <Button onClick={() => navigate(`/admin/dottuyendung/edit/${params.idDotTuyenDung}`)}>Chỉnh sửa đợt tuyển dụng</Button>
                     </Row>
                 </Col>
-                <Col span={8}>
+                <Col span={9} offset={2}>
                     <Table columns={columns} dataSource={chiTietDotTuyenDung.vi_tri} />
                 </Col>
             </Row>
@@ -115,6 +130,11 @@ const ChiTietDotTuyenDung = () => {
     const ungVienComponent = (
         <>
             <Row>
+                <Col span={24}>
+                    <YeuCauUngTuyen idDotTuyenDung={params.idDotTuyenDung} />
+                </Col>
+            </Row>
+            {/* <Row>
                 <Col span={12}>
                     <Row style={{ margin: "20px 0px" }}>
                         <Col span={10}>Tên đợt tuyển dụng:</Col>
@@ -132,11 +152,10 @@ const ChiTietDotTuyenDung = () => {
             </Row>
             <Row>
                 <Table columns={columnsUngVien} dataSource={danhSachUngVien} style={{ marginTop: "30px" }} />
-            </Row>
+            </Row> */}
         </>
     )
     const onChange = (key) => {
-        console.log(key);
     };
     const items = [
         {
@@ -164,7 +183,6 @@ const ChiTietDotTuyenDung = () => {
         let danhsach = await res.data.data.danhsach
         danhsach.map(e => e.ngay_bat_dau = formatDate(e.ngay_bat_dau))
         danhsach.map(e => e.ngay_ket_thuc = formatDate(e.ngay_ket_thuc))
-        console.log("call danh sách");
         await setChiTietDotTuyenDung(danhsach[0]);
     }
 
@@ -178,9 +196,7 @@ const ChiTietDotTuyenDung = () => {
             url: `${apiConstants.DANH_SACH_UNG_VIEN}?term=&iddottuyendung=${idDotTuyenDung}`,
             data: null,
         })
-        console.log(res);
         let danhsach = await res.data.data.danhsach
-        console.log("call ứng viên");
         await setDanhSachUngVien(danhsach);
     }
 
@@ -191,28 +207,16 @@ const ChiTietDotTuyenDung = () => {
     return (
         <>
             <Row>
-                <h1>Chi tiết đợt tuyển dụng</h1>
+                <Breadcrumb>
+                    <Breadcrumb.Item><Link to={'/admin'} >Trang chủ</Link></Breadcrumb.Item>
+                    <Breadcrumb.Item><Link to={'/admin/dottuyendung'} >Danh sách đợt tuyển dụng</Link></Breadcrumb.Item>
+                    <Breadcrumb.Item><Link to={`/admin/dottuyendung/chitiet/${params.idDotTuyenDung}`} >Chi tiết đợt tuyển dụng</Link></Breadcrumb.Item>
+                </Breadcrumb>
             </Row>
-            <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
-            {/* <Form form={form} name="validateOnly" layout="vertical" autoComplete="off">
-                <Form.Item
-                    name="name"
-                    label="Name"
-                >
-                    <Input />
-                </Form.Item>
-                <Form.Item
-                    name="age"
-                    label="Age"
-                >
-                    <Input />
-                </Form.Item>
-                <Form.Item>
-                    <Space>
-                        <Button disabled={form.isFieldsTouched(true)}>Cập nhật</Button>
-                    </Space>
-                </Form.Item>
-            </Form> */}
+            <Row>
+                <h1>CHI TIẾT ĐỢT TUYỂN DỤNG</h1>
+            </Row>
+            <Tabs defaultActiveKey="1" items={items} type="card" onChange={onChange} colorBorder={"#1677ff"}/>
         </>
     )
 }

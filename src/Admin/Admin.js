@@ -18,6 +18,7 @@ import TaoDotTuyenDung from "./QLDotTuyenDung/TaoDotTuyenDung";
 import ChiTietDotTuyenDung from "./QLDotTuyenDung/ChiTietDotTuyenDung";
 import EditDotTuyenDung from "./QLDotTuyenDung/EditDotTuyenDung";
 import CapNhatDotTuyenDung from "./QLDotTuyenDung/CapNhatDotTuyenDung";
+import Test from "./QLDotTuyenDung/Test";
 
 const { Header, Sider, Content } = Layout;
 
@@ -119,6 +120,7 @@ export default function Admin() {
             <Route path="dottuyendung/chitiet/:idDotTuyenDung" element={<ChiTietDotTuyenDung />} />
             <Route path="dottuyendung/edit/:idDotTuyenDung" element={<EditDotTuyenDung/>} />
             <Route path="dottuyendung" element={<DanhSachDotTuyenDung />} />
+            <Route path="test" element={<Test />} />
           </Routes>
         </Content>
       </Layout>

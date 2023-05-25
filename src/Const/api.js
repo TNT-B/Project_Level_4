@@ -14,6 +14,9 @@ export const apiConstants = {
     CHI_TIET_DOT_TUYEN_DUNG: `${API_HOST}/dottuyendung`,
     TAO_DOT_TUYEN_DUNG: `${API_HOST}/dottuyendung`,
     CAP_NHAT_DOT_TUYEN_DUNG: `${API_HOST}/dottuyendung`,
-    DANH_SACH_UNG_VIEN: `${API_HOST}/dottuyendung/danhsachungvien`
+    DANH_SACH_UNG_VIEN: `${API_HOST}/dottuyendung/danhsachungvien`,
+
+    //quản lý yêu càu ứng tuyển
+    CAP_NHAT_YEU_CAU_UNG_TUYEN:  `${API_HOST}/yeucauungtuyen`
   };
 

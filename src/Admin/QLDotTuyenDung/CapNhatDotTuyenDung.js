@@ -8,6 +8,7 @@ import TextArea from 'antd/es/input/TextArea';
 import { useNavigate, useParams } from 'react-router';
 import { formatDate } from '../../Const/functions';
 import dayjs from 'dayjs';
+import './dotTuyenDung.css';
 
 const CapNhatDotTuyenDung = () => {
     const [viTriList, setViTriList] = useState([])
@@ -60,6 +61,7 @@ const CapNhatDotTuyenDung = () => {
             data: null,
         })
         let danhsach = await res.data.data.danhsach
+        console.log(danhsach);
         danhsach.map(e => e.ngay_bat_dau = dayjs(e.ngay_bat_dau))
         danhsach.map(e => e.ngay_ket_thuc = dayjs(e.ngay_ket_thuc))
         console.log(danhsach[0]);

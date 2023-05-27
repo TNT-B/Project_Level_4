@@ -11,6 +11,7 @@ import "./assets/css/color/color-1.css";
 import LandingPage from "./LandingPage/LandingPage";
 import Login from "./Auth/Login";
 import Admin from "./Admin/Admin";
+import TestQuestion from "./Question/TestQuestion";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/admin/*" element={<Admin />} />
+        <Route path="/questions" element={<TestQuestion />} />
       </Routes>
     </BrowserRouter>
   );

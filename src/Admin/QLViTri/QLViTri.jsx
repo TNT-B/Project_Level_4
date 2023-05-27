@@ -13,6 +13,9 @@ const initState = {
 };
 
 export default function QLViTri() {
+  const updateFunction = () => {
+    // if (params === "function") ;
+  };
   const columns = [
     {
       title: "STT",
@@ -45,6 +48,7 @@ export default function QLViTri() {
             MaViTri={record.ma_vi_tri}
             TenViTri={record.ten_vi_tri}
             MoTa={record.mo_ta}
+            updateFunction={updateFunction}
           />
           <XoaVitri MaViTri={record.ma_vi_tri} />
         </Space>
@@ -61,7 +65,7 @@ export default function QLViTri() {
 
   useEffect(() => {
     getDSVT();
-  }, []);
+  }, [updateFunction]);
 
   const renderTable = () => {
     return (
@@ -76,16 +80,16 @@ export default function QLViTri() {
   return (
     <Card title="Quản lý vị trí" className="gx-card">
       <div className="table-operations">
-        <Space size="small">
+        <Space size="small" style={{ paddingBottom: 20 }}>
           <Search
             size="small"
             // ref={searchText}
             // suffix={suffix}
 
-            placeholder="Tìm kiếm dữ liệu"
+            placeholder="Tìm kiếm"
             style={{ width: 200 }}
           />
-          <Button size="small">Làm mới</Button>
+          {/* <Button size="small">Làm mới</Button> */}
           <ModalViTri onSuccess={getDSVT} />
         </Space>
       </div>

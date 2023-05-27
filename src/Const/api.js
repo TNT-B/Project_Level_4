@@ -14,10 +14,10 @@ export const apiConstants = {
   // TAO_VI_TRI: `https://quan-ly-tuyen-dung-be.onrender.com/vitri/`,
   // XOA_VI_TRI: `https://quan-ly-tuyen-dung-be.onrender.com/vitri`,
 
-   // quản lý bài test
+  // quản lý bài test
 
-   DANH_SACH_BAI_TEST: `${API_HOST}/baitest`,
-   CHI_TIET_BAI_TEST: (id) =>`${API_HOST}/baitest/chitiet?idbaitest=${id}`,
-   TAO_BAI_TEST: `${API_HOST}/baitest/createbaitest`,
-   CAP_NHAT_BAI_TEST: `${API_HOST}/baitest`,
+  DANH_SACH_BAI_TEST: `${API_HOST}/baitest`,
+  CHI_TIET_BAI_TEST: (id) => `${API_HOST}/baitest/chitiet?idbaitest=${id}`,
+  TAO_BAI_TEST: `${API_HOST}/baitest/createbaitest`,
+  CAP_NHAT_BAI_TEST: `${API_HOST}/baitest`,
 };

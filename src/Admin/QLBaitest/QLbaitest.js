@@ -12,6 +12,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import Xoabaitest from './XoaBaiTest.JS';
 import './BaiTest.css';
+import { pageType } from '../../Const/constant';
 
 
 
@@ -26,7 +27,7 @@ const QLBaitest = () => {
     {
       title: 'Tên bài test',
       dataIndex: 'ten_bai_test',
-      sorter: true,
+      
     },
     {
       title: 'Mô tả',
@@ -64,7 +65,7 @@ const QLBaitest = () => {
         onSuccess = { () => getData(keyword,idViTri)}
         id ={value.id}
         ma_bai_test={value.ma_bai_test} /> */}
-          <Button type="primary" onClick={() => navigate(`chitiet/${value.id}`)}>Chi tiết</Button>
+          <Button type="primary" onClick={() => navigate(`${pageType.chiTiet}/${value.id}`)}>Chi tiết</Button>
         </Space>
       )
     },
@@ -169,7 +170,7 @@ const QLBaitest = () => {
             xs: { span: 24 },
             sm: { span: 8 },
           }} >
-            <Button type='primary' className='button-to-newtest' onClick={() => navigate("tao-moi")}>Tạo mới</Button>
+            <Button type='primary' className='button-to-newtest' onClick={() => navigate(`${pageType.taoMoi}`)}>Tạo mới</Button>
           </Form.Item>
         </Col>
       </Row>

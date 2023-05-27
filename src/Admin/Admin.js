@@ -14,7 +14,7 @@ import logoa from "../assets/images/logo-a.png";
 import QLViTri from "./QLViTri/QLViTri";
 import QLBaitest from "./QLBaitest/QLbaitest";
 import Themmoibaitest from "./QLBaitest/ThemBaiTest";
-import ChiTietBaiTest from "./QLBaitest/ChiTietBaiTest";
+
 
 const { Header, Sider, Content } = Layout;
 
@@ -116,8 +116,8 @@ export default function Admin() {
           <Routes>
             <Route path="quan-li-vi-tri" element={<QLViTri />} />
             <Route path="quan-li-bai-test" element={<QLBaitest/>} />
-            <Route path="quan-li-bai-test/tao-moi" element={<Themmoibaitest />} />
-            <Route path="quan-li-bai-test/chitiet:id" element={<ChiTietBaiTest />} />
+            {/* <Route path="quan-li-bai-test/tao-moi" element={<Themmoibaitest />} /> */}
+            <Route path="quan-li-bai-test/:pageType/:id?" element={<Themmoibaitest />} />
           </Routes>
         </Content>
       </Layout>

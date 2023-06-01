@@ -45,18 +45,7 @@ function SuaViTri(props) {
       visible: true,
     });
   };
-  const handleOk = () => {
-    setModals({
-      ModalText: "The modal will be closed after two seconds",
-      confirmLoading: true,
-    });
-    setTimeout(() => {
-      setModals({
-        visible: false,
-        confirmLoading: false,
-      });
-    }, 2000);
-  };
+
   const handleCancel = () => {
     setModals({
       visible: false,
@@ -71,23 +60,25 @@ function SuaViTri(props) {
   };
 
   const handleSubmit = () => {
+    console.log(inputs);
+
     axios
       .put(apiConstants.CAP_NHAT_VI_TRI, { id: props.Id, data: inputs })
-      .then((response) =>
-        this.setState({ updatedAt: response.data.updatedAt })
-      );
+      .then((response) => {
+        setInputs({ updatedAt: response.data.updatedAt });
+      })
+      .finally(props.updateFunction());
 
-    setLoading(true);
+    // setLoading(true);
+    // setModals({
+    //   // ModalText: 'The modal will be closed after two seconds',
+    //   confirmLoading: true,
+    // });
     setModals({
-      // ModalText: 'The modal will be closed after two seconds',
-      confirmLoading: true,
+      visible: false,
+      confirmLoading: false,
     });
-    setTimeout(() => {
-      setModals({
-        visible: false,
-        confirmLoading: false,
-      });
-    }, 1000);
+    // window.location.reload();
   };
 
   return (
@@ -101,7 +92,7 @@ function SuaViTri(props) {
         onOk={form.submit}
         confirmLoading={confirmLoading}
         onCancel={handleCancel}
-        // onExit={props.reload}
+        onExit={props.reload}
       >
         <Form
           {...layout}
@@ -114,7 +105,7 @@ function SuaViTri(props) {
             <Input name="ma_vi_tri" value={ma_vi_tri} onChange={handleChange} />
           </Form.Item>
 
-          <Form.Item label="Tên vị trí">
+          <Form.Item label="Tên vị trí" rules={[{ required: true }]}>
             <Input
               name="ten_vi_tri"
               value={ten_vi_tri}

@@ -15,7 +15,6 @@ import QLViTri from "./QLViTri/QLViTri";
 import QLBaitest from "./QLBaitest/QLbaitest";
 import Themmoibaitest from "./QLBaitest/ThemBaiTest";
 
-
 const { Header, Sider, Content } = Layout;
 
 export default function Admin() {
@@ -29,9 +28,9 @@ export default function Admin() {
     switch (key) {
       case "item1":
         return <QLViTri />;
-      case "item2":
-        // return <QLTuyenDung />;
-        return <QLViTri />;
+      //case "item2":
+      // return <QLTuyenDung />;
+      //return <QLViTri />;
       default:
         break;
     }
@@ -42,7 +41,7 @@ export default function Admin() {
         <Link to="/profile">Hồ sơ</Link>
       </Menu.Item>
       <Menu.Item>
-        <Link to="/" onClick={() => { }}>
+        <Link to="/" onClick={() => {}}>
           Đăng xuất
         </Link>
       </Menu.Item>
@@ -53,7 +52,11 @@ export default function Admin() {
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="logo">
           <Link to="/admin">
-            <img src={collapsed ? logoa : logo} alt=""  style={{width:"100%"}} />
+            <img
+              src={collapsed ? logoa : logo}
+              alt=""
+              style={{ width: "100%" }}
+            />
           </Link>
         </div>
         <Menu
@@ -65,9 +68,9 @@ export default function Admin() {
           <Menu.Item key="item1" icon={<UserOutlined />}>
             <Link to="quan-li-vi-tri">Quản lý vị trí </Link>
           </Menu.Item>
-          <Menu.Item key="item2" icon={<VideoCameraOutlined />}>
+          {/* <Menu.Item key="item2" icon={<VideoCameraOutlined />}>
             <span>Quản lý tuyển dụng</span>
-          </Menu.Item>
+          </Menu.Item> */}
           <Menu.Item key="item3" icon={<VideoCameraOutlined />}>
             <Link to="quan-li-bai-test">Quản lý bài test</Link>
           </Menu.Item>
@@ -94,9 +97,10 @@ export default function Admin() {
                       src={USER}
                       width={40}
                       alt={"Binh"}
-                      style={{verticalAlign:"middle", borderRadius:"50%"}}
-                    />&nbsp;&nbsp;
-                     {"user.hoTen"} 
+                      style={{ verticalAlign: "middle", borderRadius: "50%" }}
+                    />
+                    &nbsp;&nbsp;
+                    {"user.hoTen"}
                   </span>
                 </a>
               </Popover>
@@ -115,9 +119,12 @@ export default function Admin() {
           {/* {//componentsSwitch(selectedMenuItem)} */}
           <Routes>
             <Route path="quan-li-vi-tri" element={<QLViTri />} />
-            <Route path="quan-li-bai-test" element={<QLBaitest/>} />
+            <Route path="quan-li-bai-test" element={<QLBaitest />} />
             {/* <Route path="quan-li-bai-test/tao-moi" element={<Themmoibaitest />} /> */}
-            <Route path="quan-li-bai-test/:pageType/:id?" element={<Themmoibaitest />} />
+            <Route
+              path="quan-li-bai-test/:pageType/:id?"
+              element={<Themmoibaitest />}
+            />
           </Routes>
         </Content>
       </Layout>

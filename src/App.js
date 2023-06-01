@@ -18,6 +18,7 @@ const App = () => {
         <Route path="chittiet/:id?" element={<Tuyendungscreen />} />
         <Route path="/login" element={<Login />} />
         <Route path="/admin/*" element={<Admin />} />
+        <Route path="/questions" element={<TestQuestion />} />
       </Routes>
     </BrowserRouter>
   );

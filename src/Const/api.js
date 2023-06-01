@@ -17,6 +17,13 @@ export const apiConstants = {
     DANH_SACH_UNG_VIEN: `${API_HOST}/dottuyendung/danhsachungvien`,
 
     //quản lý yêu càu ứng tuyển
-    CAP_NHAT_YEU_CAU_UNG_TUYEN:  `${API_HOST}/yeucauungtuyen`
+    CAP_NHAT_YEU_CAU_UNG_TUYEN:  `${API_HOST}/yeucauungtuyen`,
+
+    //quản lý ứng viên
+    DANH_SACH_THONG_TIN_UNG_VIEN:  `${API_HOST}/ungvien`,
+    CAP_NHAT_THONG_TIN_UNG_VIEN:  `${API_HOST}/ungvien`,
+
+    //auth
+    DANG_NHAP: `${API_HOST}/auth/login`,
   };
 

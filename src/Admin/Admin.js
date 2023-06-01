@@ -19,6 +19,8 @@ import ChiTietDotTuyenDung from "./QLDotTuyenDung/ChiTietDotTuyenDung";
 import EditDotTuyenDung from "./QLDotTuyenDung/EditDotTuyenDung";
 import CapNhatDotTuyenDung from "./QLDotTuyenDung/CapNhatDotTuyenDung";
 import Test from "./QLDotTuyenDung/Test";
+import DanhSachUngVien from "./QLUngVien/DanhSachUngVien";
+import Login from "../Auth/Login";
 
 const { Header, Sider, Content } = Layout;
 
@@ -116,10 +118,12 @@ export default function Admin() {
           {/* {//componentsSwitch(selectedMenuItem)} */}
           <Routes>
             <Route path="quan-li-vi-tri" element={<QLViTri />} />
+            <Route path="login" element={<Login />} />
             <Route path="dottuyendung/create" element={<TaoDotTuyenDung />} />
             <Route path="dottuyendung/chitiet/:idDotTuyenDung" element={<ChiTietDotTuyenDung />} />
             <Route path="dottuyendung/edit/:idDotTuyenDung" element={<EditDotTuyenDung/>} />
             <Route path="dottuyendung" element={<DanhSachDotTuyenDung />} />
+            <Route path="ungvien" element={<DanhSachUngVien />} />
             <Route path="test" element={<Test />} />
           </Routes>
         </Content>

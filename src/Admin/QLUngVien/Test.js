@@ -29,7 +29,6 @@ const EditableCell = ({
         let timePv = false
         let hinhThucPv = false
         let ketQuaPv = false
-        let ngayNhanViec = true
 
         if (!record?.ung_vien.diem_lam_test_dau_vao && record?.ung_vien.diem_lam_test_dau_vao != 0) {
             timePv = true
@@ -58,17 +57,11 @@ const EditableCell = ({
             ketQuaPv = false
         }
 
-        if(record?.ung_vien.ket_qua_pv == "Đậu"){
-            ngayNhanViec = false
-        }
-
         switch (inputType) {
             case 'time_lam_test':
-                return (<DatePicker format="YYYY-MM-DD HH:mm:ss" showTime={true} disabled={timeLamTest} />)
+                return (<DatePicker format="YYYY-MM-DD HH:mm:ss" showTime={true} disabled={timeLamTest}/>)
             case 'time_pv':
-                return (<DatePicker format="YYYY-MM-DD HH:mm:ss" showTime={true} disabled={timePv} />)
-            case 'ngay_nhan_viec':
-                return (<DatePicker disabled={ngayNhanViec} />)
+                return (<DatePicker format="YYYY-MM-DD HH:mm:ss" showTime={true} disabled={timePv}/>)
             case 'hinh_thuc_option':
                 return (
                     <Select
@@ -120,16 +113,16 @@ const YeuCauUngTuyen = ({ idDotTuyenDung }) => {
     const isEditing = (record) => record.ung_vien.id_yeu_cau_ung_tuyen === editingKey;
     const edit = (record) => {
         let temp = record
-        if (temp.ung_vien.thoi_gian_lam_test) {
+        if(temp.ung_vien.thoi_gian_lam_test){
             temp.ung_vien.thoi_gian_lam_test = dayjs(temp.ung_vien.thoi_gian_lam_test)
         }
 
-        if (temp.ung_vien.thoi_gian_pv) {
+        if(temp.ung_vien.thoi_gian_pv){
             temp.ung_vien.thoi_gian_pv = dayjs(temp.ung_vien.thoi_gian_pv)
         }
 
         console.log(record);
-
+        
         form.setFieldsValue({
             ...temp,
         });
@@ -138,11 +131,11 @@ const YeuCauUngTuyen = ({ idDotTuyenDung }) => {
     };
     const cancel = (record) => {
         let temp = record
-        if (temp.ung_vien.thoi_gian_lam_test) {
+        if(temp.ung_vien.thoi_gian_lam_test){
             temp.ung_vien.thoi_gian_lam_test = dayjs(temp.ung_vien.thoi_gian_lam_test).format("YYYY-MM-DD HH:mm:ss")
         }
 
-        if (temp.ung_vien.thoi_gian_pv) {
+        if(temp.ung_vien.thoi_gian_pv){
             temp.ung_vien.thoi_gian_pv = dayjs(temp.ung_vien.thoi_gian_pv).format("YYYY-MM-DD HH:mm:ss")
         }
         form.setFieldsValue({
@@ -171,7 +164,7 @@ const YeuCauUngTuyen = ({ idDotTuyenDung }) => {
             })
 
             console.log(res);
-            if (res.data.status == "true") {
+            if(res.data.status == "true"){
                 getUngVien(idDotTuyenDung)
             }
             setEditingKey('');
@@ -227,12 +220,12 @@ const YeuCauUngTuyen = ({ idDotTuyenDung }) => {
 
                 return (
                     <>
-                        {(record.ung_vien.cv) ? (<a onClick={handleClick}>Xem CV</a>) : <div>None</div>}
+                        {(record.ung_vien.cv)? (<a onClick={handleClick}>Xem CV</a>) : <div>None</div>}
                     </>
-
-                    // <Upload fileList={fileList}>
-                    //     <Button icon={<UploadOutlined />}></Button>
-                    // </Upload>
+                
+                // <Upload fileList={fileList}>
+                //     <Button icon={<UploadOutlined />}></Button>
+                // </Upload>
                 )
             }
             ,
@@ -247,7 +240,7 @@ const YeuCauUngTuyen = ({ idDotTuyenDung }) => {
             dataIndex: ['ung_vien', 'diem_lam_test_dau_vao'],
         },
         {
-            title: 'Thời gian PV',
+            title: 'Thời gian phỏng vấn',
             dataIndex: ['ung_vien', 'thoi_gian_pv'],
             editable: true,
         },
@@ -259,11 +252,6 @@ const YeuCauUngTuyen = ({ idDotTuyenDung }) => {
         {
             title: 'Kết quả PV',
             dataIndex: ['ung_vien', 'ket_qua_pv'],
-            editable: true,
-        },
-        {
-            title: 'Ngày nhận việc',
-            dataIndex: ['ung_vien', 'ngay_nhan_viec'],
             editable: true,
         },
         {
@@ -321,8 +309,6 @@ const YeuCauUngTuyen = ({ idDotTuyenDung }) => {
                 return 'hinh_thuc_option'
             case 'ung_vien,ket_qua_pv':
                 return 'ket_qua_option'
-            case 'ung_vien,ngay_nhan_viec':
-                return 'ngay_nhan_viec'
             default:
                 return 'text'
         }
@@ -341,11 +327,11 @@ const YeuCauUngTuyen = ({ idDotTuyenDung }) => {
         let danhsach = await res.data.data.danhsach
         console.log(danhsach);
         danhsach.map(e => {
-            if (e.ung_vien.thoi_gian_lam_test) {
+            if(e.ung_vien.thoi_gian_lam_test){
                 e.ung_vien.thoi_gian_lam_test = dayjs(e.ung_vien.thoi_gian_lam_test).format("YYYY-MM-DD HH:mm:ss")
             }
 
-            if (e.ung_vien.thoi_gian_pv) {
+            if(e.ung_vien.thoi_gian_pv){
                 e.ung_vien.thoi_gian_pv = dayjs(e.ung_vien.thoi_gian_pv).format("YYYY-MM-DD HH:mm:ss")
             }
         })

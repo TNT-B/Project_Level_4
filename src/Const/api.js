@@ -1,5 +1,6 @@
-//const API_HOST = process.env.REACT_APP_API_HOST;
-const APP_API_HOST = "https://quan-ly-tuyen-dung-be.onrender.com";
+// const API_HOST = process.env.REACT_APP_API_HOST;
+// const APP_API_HOST = "https://quan-ly-tuyen-dung-be.onrender.com";
+const API_HOST = "https://quan-ly-tuyen-dung-be.onrender.com";
 
 export const apiConstants = {
   //quản lý vi tri

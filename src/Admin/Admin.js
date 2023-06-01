@@ -120,7 +120,14 @@ export default function Admin() {
         >
           {/* {//componentsSwitch(selectedMenuItem)} */}
           <Routes>
-            <Route path="quan-li-vi-tri" element={<QLViTri />} />
+          <Route path="quan-li-vi-tri" element={<QLViTri />} />
+            <Route path="login" element={<Login />} />
+            <Route path="dottuyendung/create" element={<TaoDotTuyenDung />} />
+            <Route path="dottuyendung/chitiet/:idDotTuyenDung" element={<ChiTietDotTuyenDung />} />
+            <Route path="dottuyendung/edit/:idDotTuyenDung" element={<EditDotTuyenDung/>} />
+            <Route path="dottuyendung" element={<DanhSachDotTuyenDung />} />
+            <Route path="ungvien" element={<DanhSachUngVien />} />
+            <Route path="test" element={<Test />} />
           </Routes>
         </Content>
       </Layout>

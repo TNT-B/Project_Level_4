@@ -1,0 +1,91 @@
+import { Button, Select, Modal, Form, Input, InputNumber } from "antd";
+import React, { useState, useEffect, Fragment } from "react";
+import { useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { userActions } from "../../redux/_actions";
+import { apiConstants } from "../../redux/_constants";
+const { Option, OptGroup } = Select;
+const layout = {
+  labelCol: { span: 8 },
+  wrapperCol: { span: 16 },
+};
+const validateMessages = {
+  required: "${label} không được để trống!",
+  // types: {
+  //   email: "${label} không đúng định dạng email!",
+  //   number: "${label} không đúng định dạng số!",
+  // },
+  // number: {
+  //   range: "${label} phải bao gồm 10 số",
+  // },
+};
+const onFinish = (values) => {
+  console.log(values);
+};
+
+function XoaViTri(props) {
+  const stateUser = {
+    ma_vi_tri: "",
+    ten_vi_tri: "",
+    mo_ta: "",
+  };
+  const stateModal = {
+    ModalText: "",
+    visible: false,
+    confirmLoading: false,
+  };
+
+  const { user_deleted } = useSelector((state) => state.users);
+  const [confirmLoading, setConfirmLoading] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [modalText, setModalText] = useState("");
+  const dispatch = useDispatch();
+
+  const showModal = () => {
+    setVisible(true);
+    setModalText(`bạn có chắc muốn xóa vị trí ${props.ma_vi_tri} ?`);
+  };
+
+  const handleCancel = () => {
+    setVisible(false);
+  };
+
+  const handleSubmit = () => {
+    setModalText("đang thực hiện việc xóa vị trí...");
+    setConfirmLoading(true);
+    dispatch(userActions.delete(props.ma_vi_tri, apiConstants.USER_DELETE));
+    if (user_deleted) {
+      setModalText("thành công !");
+      setTimeout(() => {
+        setVisible(false);
+        setConfirmLoading(false);
+      }, 2000);
+    }
+    if (!user_deleted) {
+      setModalText("Không thành công");
+      setConfirmLoading(false);
+    }
+  };
+
+  return (
+    <>
+      <Button type="default" onClick={showModal} danger size="small">
+        Xóa
+      </Button>
+      <Modal
+        title={`Xóa vị trí`}
+        visible={visible}
+        onOk={handleSubmit}
+        confirmLoading={confirmLoading}
+        onCancel={handleCancel}
+        destroyOnClose
+        okText="Lưu"
+        cancelText="Hủy"
+      >
+        {modalText}
+      </Modal>
+    </>
+  );
+}
+
+export default XoaViTri;

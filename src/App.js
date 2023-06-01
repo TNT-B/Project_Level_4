@@ -5,10 +5,12 @@ import "./assets/css/typography.css";
 import "./assets/css/shortcodes/shortcodes.css";
 import "./assets/css/style.css";
 import "./assets/css/color/color-1.css";
+
 import LandingPage from "./LandingPage/LandingPage";
 import Login from "./Auth/Login";
 import Admin from "./Admin/Admin";
 import Tuyendungscreen from "./LandingPage/ViTriTuyenDung/Tuyendungscreen";
+import TestQuestion from "./Question/TestQuestion";
 
 const App = () => {
   return (

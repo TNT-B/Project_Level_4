@@ -5,6 +5,7 @@ export const apiConstants = {
   //quản lý vi tri
 
   DANH_SACH_VI_TRI: `${API_HOST}/vitri`,
+  CHI_TIET_VI_TRI: (id) =>`${API_HOST}/vitri/chitiet?id=${id}`,
   CAP_NHAT_VI_TRI: `${API_HOST}/vitri`,
   TAO_VI_TRI: `${API_HOST}/vitri/`,
   XOA_VI_TRI: `${API_HOST}/vitri`,
@@ -20,4 +21,7 @@ export const apiConstants = {
    CHI_TIET_BAI_TEST: (id) =>`${API_HOST}/baitest/chitiet?idbaitest=${id}`,
    TAO_BAI_TEST: `${API_HOST}/baitest/createbaitest`,
    CAP_NHAT_BAI_TEST: `${API_HOST}/baitest`,
+
+    // quản lý ứng viên
+    UNG_TUYEN: `${API_HOST}/ungvien/`,
 };

@@ -14,12 +14,12 @@ import { apiConstants } from "../../Const/api";
 
 
 const Themmoibaitest = () => {
-    const [data,setData] =useState();
+    const [api, contextHolder] = notification.useNotification();
     const {
         token: { colorBgContainer },
     } = theme.useToken();
     const { id,pageType:currentPageType} = useParams();
-    const { Header, Content, Footer } = Layout;
+    const {Content} = Layout;
     const [danhsachvitri, setDanhSachViTri] = useState([]);
     const [form] = useForm();
     const maBaiKiemtra = Form.useWatch('ma_bai_test', form);
@@ -48,7 +48,7 @@ const Themmoibaitest = () => {
         const danhSachCauHoi = form.getFieldValue('danhSachCauHoi') ?? [];
         const body = {
             ma_bai_test: form.getFieldValue('ma_bai_test'),
-            mo_ta: form.getFieldValue('ma_bai_test'),
+            mo_ta: form.getFieldValue('mo_ta'),
             so_diem_toi_thieu: form.getFieldValue('so_diem_toi_thieu'),
             ten_bai_test: form.getFieldValue('ten_bai_test'),
             thoi_luong: form.getFieldValue('thoi_luong'),
@@ -81,7 +81,7 @@ const Themmoibaitest = () => {
             vi_tri: form.getFieldValue('vi_tri'),
             cau_hoi: danhSachCauHoi
         }
-        await axios.post(apiConstants.CAP_NHAT_BAI_TEST, body)
+        await axios.put(apiConstants.CAP_NHAT_BAI_TEST, body)
             .then((success) =>{
                 notification.destroy()
                 notification.success({
@@ -106,12 +106,8 @@ const Themmoibaitest = () => {
             fetchBaiTest(id);
         }
     }, [id])
-    const [api, contextHolder] = notification.useNotification();
-    const openNotificationWithIcon = (type) => {
-        api[type]({
-            message: 'Thêm bài test thành công',
-        });
-    }
+  
+    
     return (
         <>
             {contextHolder}
@@ -126,7 +122,7 @@ const Themmoibaitest = () => {
                 </Row>
                 <Row>
                     <Col span={11}>
-                        <Form form={form} 
+                        <Form form={form}
                         // onFinish={pageType.chiTiet == currentPageType ? putBaiTest : postBaiTest }
                          >
                             <Row>

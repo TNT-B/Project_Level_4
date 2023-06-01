@@ -23,41 +23,48 @@ const QLBaitest = () => {
     {
       title: 'Mã bài test',
       dataIndex: 'ma_bai_test',
+      key: 'ma_bai_test',
     },
     {
       title: 'Tên bài test',
       dataIndex: 'ten_bai_test',
-      
+      key: 'ten_bai_test',
     },
     {
       title: 'Mô tả',
       dataIndex: 'mo_ta',
+      key: 'mo_ta',
     },
     {
       title: 'Ngày chỉnh sữa gần nhất',
       dataIndex: 'ngay_chinh_sua_gan_nhat',
+      key: 'ngay_chinh_sua_gan_nhat',
       render: (value) => moment(value).format("DD/MM/yyyy")
     },
     {
       title: 'Ngày tạo bài test',
       dataIndex: 'ngay_tao_bai_test',
+      key: 'ngay_tao_bai_test',
       render: (value) => moment(value).format("DD/MM/yyyy")
     },
     {
       title: 'Thời lượng',
       dataIndex: 'thoi_luong',
+      key: 'thoi_luong',
     },
     {
       title: 'Số điểm tối thiểu',
       dataIndex: 'so_diem_toi_thieu',
+      key: 'so_diem_toi_thieu',
     },
     {
       title: 'Vị trí',
       dataIndex: 'vi_tri',
+      key: 'vi_tri',
     },
     {
       title: "Thao tác",
-
+      key: 'thao_tac',
       render: (value) => (
         <Space size="middle">
           {/* <a>Invite {record.lastName}</a> */}
@@ -113,7 +120,7 @@ const QLBaitest = () => {
         }
       })
       setData(newData);
-      
+
     })
   }
 

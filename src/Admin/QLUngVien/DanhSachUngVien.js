@@ -2,7 +2,7 @@ import { Breadcrumb, Button, Col, DatePicker, Form, Input, InputNumber, Popconfi
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { apiConstants } from '../../Const/api';
-import './dotTuyenDung.css'
+import './ungVien.css'
 import { Option } from 'antd/es/mentions';
 import dayjs from 'dayjs';
 import { Link, useNavigate } from 'react-router-dom';

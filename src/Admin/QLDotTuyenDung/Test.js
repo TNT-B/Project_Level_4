@@ -117,6 +117,7 @@ const YeuCauUngTuyen = ({ idDotTuyenDung }) => {
     const [form] = Form.useForm();
     const [data, setData] = useState(originData);
     const [editingKey, setEditingKey] = useState('');
+    const [baiTestList, setBaiTestList] = useState([])
     const isEditing = (record) => record.ung_vien.id_yeu_cau_ung_tuyen === editingKey;
     const edit = (record) => {
         let temp = record
@@ -328,6 +329,20 @@ const YeuCauUngTuyen = ({ idDotTuyenDung }) => {
         }
     }
 
+    const getBaiTestList = async () => {
+        // let token = sessionStorage.getItem("token");
+        const res = await axios({
+            method: "GET",
+            headers: {
+                // Authorization: `Bearer ${token}`,
+            },
+            url: `${apiConstants.DANH_SACH_BAI_TEST}?term=&vitri=`,
+            data: null,
+        })
+        let danhsach = await res.data.data.danhsach
+        await setBaiTestList(danhsach);
+    };
+
     const getUngVien = async (idDotTuyenDung) => {
         // let token = sessionStorage.getItem("token");
         const res = await axios({
@@ -355,6 +370,7 @@ const YeuCauUngTuyen = ({ idDotTuyenDung }) => {
     }
 
     useEffect(() => {
+        getBaiTestList()
         getUngVien(idDotTuyenDung)
     }, [])
 

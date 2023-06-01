@@ -25,5 +25,8 @@ export const apiConstants = {
 
     //auth
     DANG_NHAP: `${API_HOST}/auth/login`,
+
+    //quản lý bài test
+    DANH_SACH_BAI_TEST: `${API_HOST}/baitest`,
   };
 

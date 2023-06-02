@@ -43,6 +43,7 @@ const Themmoibaitest = () => {
             ...baitest,
             danhSachCauHoi: baitest.cau_hoi
         })
+        console.log(baitest);
     }
     const postBaiTest = async () => {
         const danhSachCauHoi = form.getFieldValue('danhSachCauHoi') ?? [];
@@ -117,7 +118,7 @@ const Themmoibaitest = () => {
                 }}>
                 <Row>
                     <Col span={24}>
-                        <h1 style={{ fontSize: "25px", color: "#191970", marginBottom: "40px", marginTop: "10px" }}>{pageType.chiTiet == currentPageType ? 'CHI TIẾT BÀI KIỂM TRA' : 'TẠO MỚI BÀI KIỂM TRA'} {console.log(currentPageType)}</h1>
+                        <h1 style={{ fontSize: "25px", color: "#191970", marginBottom: "40px", marginTop: "10px" }}>{pageType.chiTiet == currentPageType ? 'CHI TIẾT BÀI KIỂM TRA' : 'TẠO MỚI BÀI KIỂM TRA'}</h1>
                     </Col>
                 </Row>
                 <Row>

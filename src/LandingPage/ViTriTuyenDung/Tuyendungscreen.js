@@ -7,6 +7,10 @@ import { useState } from "react";
 import { apiConstants } from "../../Const/api";
 import axios from "axios";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import {DoubleLeftOutlined } from '@ant-design/icons';
+import FooterLDP from "../LDPComponents/FooterLDP";
+import Menutop from "../LDPComponents/Menutop";
 
 
 const Tuyendungscreen = () => {
@@ -33,6 +37,7 @@ const Tuyendungscreen = () => {
     return (
         <Layout className="layout">
             <Header>
+                <Menutop/>
             </Header>
             <Content
                 style={{
@@ -73,8 +78,11 @@ const Tuyendungscreen = () => {
                             </Title> */}
                         </Row>
                     </Row>
+                    <Row style={{ paddingTop: '50px', paddingLeft:'50px', background: '#EEEEEE' }}>
+                    <Link to={'/'}><DoubleLeftOutlined /> về trang chủ</Link>
+                    </Row>
                     <Row style={{ padding: '50px', background: '#EEEEEE' }}>
-
+                    
                         <Col span={12} style={{ background: 'white' }} >
                             <Title level={2} align="center">
                                 {data.ten_vi_tri}
@@ -103,12 +111,7 @@ const Tuyendungscreen = () => {
                     </Row>
                 </div>
             </Content>
-            <Footer
-                style={{
-                    textAlign: 'center',
-                    theme: "dark"
-                }}>
-            </Footer>
+            <FooterLDP/>
         </Layout>
     )
 }

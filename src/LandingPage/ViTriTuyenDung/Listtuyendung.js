@@ -6,7 +6,7 @@ import { apiConstants } from '../../Const/api';
 
 const { Title } = Typography;
 const Listtuyendung = (value) => {
-    const { Text} = Typography;
+    const { Text } = Typography;
     const Navigate = useNavigate();
     const { id } = useParams();
     const [danhSachViTri, setDSVT] = useState([]);
@@ -47,6 +47,7 @@ const Listtuyendung = (value) => {
 
     return (
         <Space
+            id='vi-tri-tuyen-dung'
             direction="vertical"
             size="middle"
             style={{
@@ -54,14 +55,14 @@ const Listtuyendung = (value) => {
                 paddingBottom: '10px',
             }}>
             <Divider><Title align="center">Vị trí tuyển dụng</Title></Divider>
-            <Row 
-            gutter={[16,{
-                xs: 8,
-                sm: 16,
-                md: 32,
-                lg: 40,
-            }]} 
-            align="middle"
+            <Row
+                gutter={[16, {
+                    xs: 8,
+                    sm: 16,
+                    md: 32,
+                    lg: 40,
+                }]}
+                align="middle"
             >
                 {danhSachViTri.map(danhsach =>
                     <Col span={5}>
@@ -79,7 +80,7 @@ const Listtuyendung = (value) => {
                                 </Row>
                                 <Divider />
                                 <Row align="middle">
-                                    <Text style={{fontSize: 18}} type="secondary">
+                                    <Text style={{ fontSize: 18 }} type="secondary">
                                         {danhsach.mo_ta}
                                     </Text>
                                 </Row>

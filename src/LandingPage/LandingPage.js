@@ -63,13 +63,6 @@ const LandingPage = () => {
                     <Footerslider />
                 </div>
             </Content>
-            {/* <Footer
-                style={{
-                    textAlign: 'center',
-                    theme: "dark"
-                }}
-            >
-            </Footer> */}
             <FooterLDP/>
         </Layout>
 

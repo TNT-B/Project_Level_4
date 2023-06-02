@@ -39,11 +39,7 @@ const Tuyendungscreen = () => {
             <Header>
                 <Menutop/>
             </Header>
-            <Content
-                style={{
-                    padding: '0 5px',
-                }}
-            >
+            <Content>
                 {/* <Breadcrumbtop /> */}
                 <div
                     className="site-layout-content"

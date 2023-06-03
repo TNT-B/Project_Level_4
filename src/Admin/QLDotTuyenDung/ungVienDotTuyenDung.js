@@ -395,7 +395,9 @@ const YeuCauUngTuyen = ({ idDotTuyenDung }) => {
                 mail: e.ung_vien.email,
                 ten: e.ung_vien.ho_va_ten,
                 thoiGianTest: e.ung_vien.thoi_gian_lam_test,
-                maUngVien: e.ung_vien.id_ung_vien
+                maUngVien: e.ung_vien.id_ung_vien,
+                thoiGianNhanViec:e.ung_vien.thoi_gian_nhan_viec,
+                thoiGianPv:e.ung_vien.thoi_gian_pv
             }
         })
 

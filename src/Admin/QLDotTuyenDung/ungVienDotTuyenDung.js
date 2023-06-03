@@ -9,6 +9,7 @@ import dayjs from 'dayjs';
 const YeuCauUngTuyen = ({ idDotTuyenDung }) => {
     const [danhSachUngVien, setDanhSachUngVien] = useState([])
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+    const [selectedRows, setSelectedRows] = useState([]);
     const [form] = Form.useForm();
     const [editingKey, setEditingKey] = useState('');
     const [baiTestList, setBaiTestList] = useState([])
@@ -382,17 +383,52 @@ const YeuCauUngTuyen = ({ idDotTuyenDung }) => {
     const rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
             setSelectedRowKeys(selectedRowKeys);
+            setSelectedRows(selectedRows);
             console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
         },
     };
     const hasSelected = selectedRowKeys.length > 0;
 
-    const onFinish = (values) => {
-        console.log('Success:', values);
+    const onFinish = async (values) => {
+        let nguoiNhan = selectedRows.map(e => {
+            return {
+                mail: e.ung_vien.email,
+                ten: e.ung_vien.ho_va_ten,
+                thoiGianTest: e.ung_vien.thoi_gian_lam_test,
+                maUngVien: e.ung_vien.id_ung_vien
+            }
+        })
+
+        let mauEmail = values.mauEmail
+        let data = {
+            nguoiNhan, mauEmail
+        }
+
+        try {
+            var result = await axios({
+                method: "POST",
+                headers: {
+                    // Authorization: `Bearer ${token}`,
+                },
+                url: `${apiConstants.GUI_MAIL}`,
+                data: data
+            });
+
+            let status = await result.data.status
+
+            if(status == "true"){
+                message.success("Gửi email thành công")
+            }
+        } catch (error) {
+            console.log(error.response.data.message);
+            message.error(error.response.data.message);
+            return
+        }
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
+
 
     useEffect(() => {
         getBaiTestList()
@@ -402,42 +438,11 @@ const YeuCauUngTuyen = ({ idDotTuyenDung }) => {
     return (
         <Form form={form} component={false} >
             <Row>
-                <Col span={6}>
-                    <Select
-                        style={{ width: "100%" }}
-                        placeholder="Chọn mẫu mail muốn gửi"
-                        disabled={!hasSelected}
-                        options={[
-                            {
-                                value: 'mailBaiTest',
-                                label: 'Gửi mail bài test',
-                            },
-                            {
-                                value: 'mailKqPv',
-                                label: 'Gửi mail kết quả phỏng vấn',
-                            },
-                            {
-                                value: 'mailLichPv',
-                                label: 'Gửi mail lịch phỏng vấn',
-                            },
-                        ]}
-                    />
-                </Col>
-                <Col span={3} offset={1}>
-                    <Button disabled={!hasSelected} style={{ marginBottom: "15px" }}>Gửi mail</Button>
-                </Col>
-            </Row>
-            <Row>
                 <Form
                     name="basic"
-                    labelCol={{
-                        span: 8,
-                    }}
-                    wrapperCol={{
-                        span: 16,
-                    }}
+                    disabled={!hasSelected}
                     style={{
-                        maxWidth: 600,
+                        width:'100%'
                     }}
                     initialValues={{
                         remember: true,
@@ -446,36 +451,42 @@ const YeuCauUngTuyen = ({ idDotTuyenDung }) => {
                     onFinishFailed={onFinishFailed}
                     autoComplete="off"
                 >
-                    <Form.Item
-                        name="username"
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Vui lòng chọn mẫu form!',
-                            },
-                        ]}
-                    >
-                        <Select
-                            placeholder="Chọn mẫu mail muốn gửi"
-                            onChange={onGenderChange}
-                            allowClear
-                        >
-                            <Option value="mailBaiTest">Gửi mail bài test</Option>
-                            <Option value="mailKqPv">Gửi mail kết quả phỏng vấn</Option>
-                            <Option value="mailLichPv">Gửi mail lịch phỏng vấn</Option>
-                        </Select>
-                    </Form.Item>
+                    <Row>
+                        <Col span={6}>
+                            <Form.Item
+                                name="mauEmail"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'Vui lòng chọn mẫu form!',
+                                    },
+                                ]}
+                            >
+                                <Select
+                                    placeholder="Chọn mẫu mail muốn gửi"
+                                    // onChange={onMailChange}
+                                    allowClear
+                                >
+                                    <Option value="mailBaiTest">Gửi mail bài test</Option>
+                                    <Option value="mailKqPv">Gửi mail kết quả phỏng vấn</Option>
+                                    <Option value="mailLichPv">Gửi mail lịch phỏng vấn</Option>
+                                </Select>
+                            </Form.Item>
+                        </Col>
+                        <Col>
+                            <Form.Item
+                                wrapperCol={{
+                                    offset: 8,
+                                    span: 16,
+                                }}
+                            >
+                                <Button type="primary" htmlType="submit">
+                                    Gửi mail
+                                </Button>
+                            </Form.Item>
+                        </Col>
 
-                    <Form.Item
-                        wrapperCol={{
-                            offset: 8,
-                            span: 16,
-                        }}
-                    >
-                        <Button type="primary" htmlType="submit">
-                            Submit
-                        </Button>
-                    </Form.Item>
+                    </Row>
                 </Form>
             </Row>
 

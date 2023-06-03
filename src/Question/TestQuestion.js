@@ -7,7 +7,7 @@ import FormItem from "antd/es/form/FormItem";
 import { useLocation, useParams } from "react-router";
 import { Button, Modal } from 'antd';
 import { useSearchParams } from "react-router-dom";
-import { Color } from "@rc-component/color-picker";
+// import { Color } from "@rc-component/color-picker";
 
 function TestQuestion() {
   const [time, setTime] = useState(360);

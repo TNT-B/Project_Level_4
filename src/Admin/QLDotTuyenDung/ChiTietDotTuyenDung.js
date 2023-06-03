@@ -6,7 +6,7 @@ import { apiConstants } from "../../Const/api";
 import axios from "axios";
 import { formatDate } from "../../Const/functions";
 import './dotTuyenDung.css'
-import YeuCauUngTuyen from "./Test";
+import YeuCauUngTuyen from "./ungVienDotTuyenDung";
 import { Link } from "react-router-dom";
 
 const ChiTietDotTuyenDung = () => {

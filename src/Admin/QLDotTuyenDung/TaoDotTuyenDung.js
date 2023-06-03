@@ -46,8 +46,6 @@ const TaoDotTuyenDung = () => {
             message.error(error.response.data.message);
             return
         }
-        console.log("hello");
-        console.log(result);
         if (result.data.status == "true") {
             navigate("/admin/dottuyendung")
         } else {

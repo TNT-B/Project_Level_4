@@ -57,5 +57,8 @@ export const apiConstants = {
 
     //quản lý bài test
     DANH_SACH_BAI_TEST: `${API_HOST}/baitest`,
+
+    //quản lý email
+    GUI_MAIL: `${API_HOST}/mail`,
   };
 

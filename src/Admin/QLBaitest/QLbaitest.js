@@ -10,7 +10,7 @@ import {
   Typography, Table, Space, Row, Col, Breadcrumb
 } from 'antd';
 import { Link, useNavigate } from "react-router-dom";
-import Xoabaitest from './XoaBaiTest.JS';
+// import Xoabaitest from './XoaBaiTest.JS';
 import './BaiTest.css';
 import { pageType } from '../../Const/constant';
 
@@ -183,7 +183,7 @@ const QLBaitest = () => {
             xs: { span: 24 },
             sm: { span: 8 },
           }} >
-            <Button type='primary'  onClick={() => navigate(`${pageType.taoMoi}`)}>+ Tạo mới</Button>
+            <Button type='primary' onClick={() => navigate(`${pageType.taoMoi}`)}>+ Tạo mới</Button>
           </Form.Item>
         </Col>
       </Row>

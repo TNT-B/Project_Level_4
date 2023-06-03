@@ -7,25 +7,6 @@ import { useParams } from 'react-router';
 import { useEffect, useState } from 'react';
 
 const { Dragger } = Upload;
-const props = {
-    name: 'file',
-    multiple: true,
-    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-    onChange(info) {
-        const { status } = info.file;
-        if (status !== 'uploading') {
-            console.log(info.file, info.fileList);
-        }
-        if (status === 'done') {
-            message.success(`${info.file.name} file uploaded successfully.`);
-        } else if (status === 'error') {
-            message.error(`${info.file.name} file upload failed.`);
-        }
-    },
-    onDrop(e) {
-        console.log('Dropped files', e.dataTransfer.files);
-    },
-};
 
 const layout = {
     labelCol: {
@@ -56,10 +37,12 @@ const validateMessages = {
 
 const Formtuyendung = () => {
     const { id } = useParams();
-    const [thongTinViTri,setthongTinViTri] = useState();
+    const [thongTinViTri, setthongTinViTri] = useState();
+    const [idDotTuyenDung, setIdDotTuyenDung] = useState()
     const [data, setData] = useState();
     const [api, contextHolder] = notification.useNotification();
     const [form] = useForm();
+    const [danhSachViTri, setDSVT] = useState([]);
     const getCTVT = async (id) => {
         const res = await axios.get(apiConstants.CHI_TIET_VI_TRI(id));
         // console.log(res);
@@ -76,19 +59,50 @@ const Formtuyendung = () => {
         }
     }, [id]);
 
+    const getDSVT = async () => {
+        const res = await axios.get(apiConstants.CHI_TIET_DOT_TUYEN_DUNG_GAN_NHAT);
+        console.log(res);
+        let newData = await res.data.data.danhsach
+        setIdDotTuyenDung(res.data.data.danhsach[0]._id)
+        console.log(newData);
+        setDSVT(newData);
+        // console.log(newData)
+        // console.log(res);
+        
+    };
+    useEffect(() => {
+        getDSVT();
+    }, []);
+
     const postUngVien = async () => {
-        const body = {
-            id_vi_tri: thongTinViTri._id,
-            ho_va_ten: form.getFieldValue('ho_va_ten'),
-            sdt: form.getFieldValue('sdt'),
-            email: form.getFieldValue('email'),
-            nam_sinh: form.getFieldValue('nam_sinh'),
-            gioi_tinh: form.getFieldValue('gioi_tinh'),
-            ten_vi_tri: form.getFieldValue('ten_vi_tri'),
-            file: form.getFieldValue('file'),
-        }
-        console.log(body);
-        await axios.post(apiConstants.UNG_TUYEN, body)
+        // const body = {
+        //     id_vi_tri: thongTinViTri._id,
+        //     ho_va_ten: form.getFieldValue('ho_va_ten'),
+        //     sdt: form.getFieldValue('sdt'),
+        //     email: form.getFieldValue('email'),
+        //     nam_sinh: form.getFieldValue('nam_sinh'),
+        //     gioi_tinh: form.getFieldValue('gioi_tinh'),
+        //     ten_vi_tri: form.getFieldValue('ten_vi_tri'),
+        //     file: form.getFieldValue('file'),
+        // }
+        console.log(idDotTuyenDung);
+        const file = form.getFieldValue('file')
+        const body = new FormData()
+        body.append('id_vi_tri', thongTinViTri._id)
+        body.append('id_dot_tuyen_dung', idDotTuyenDung)
+        body.append('ho_va_ten', form.getFieldValue('ho_va_ten'))
+        body.append('sdt', form.getFieldValue('sdt'))
+        body.append('email', form.getFieldValue('email'))
+        body.append('nam_sinh', form.getFieldValue('nam_sinh'))
+        body.append('gioi_tinh', form.getFieldValue('gioi_tinh'))
+        body.append('ten_vi_tri', form.getFieldValue('ten_vi_tri'))
+        body.append('file', file, file.name)
+        // return console.log(body);
+        await axios.post(apiConstants.UNG_TUYEN, body, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            }
+        })
             .then((success) => {
                 notification.destroy()
                 notification.success({
@@ -175,13 +189,14 @@ const Formtuyendung = () => {
                     <Input />
                 </Form.Item>
                 <Form.Item
-
+                    name="file"
                     wrapperCol={{
                         ...layout.wrapperCol,
                         offset: 8,
                     }}
                 >
-                    <Dragger {...props} name='file'>
+                    <Dragger onChange={(info) => form.setFieldValue('file', info.file.originFileObj
+                    )} >
                         <p className="ant-upload-drag-icon">
                             <InboxOutlined />
                         </p>

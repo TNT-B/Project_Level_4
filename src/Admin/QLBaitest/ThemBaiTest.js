@@ -170,19 +170,24 @@ const Themmoibaitest = () => {
                             {(fields, { remove }) => (
                                 <Row>
                                     <Form.Item name={'danhSachCauHoi'} hidden ></Form.Item>
-                                    {danhsachcauhoi && danhsachcauhoi.map((cauhoi, index) => <Row>
+
+                                    {danhsachcauhoi && danhsachcauhoi.map((cauhoi, index) => 
+                                    <Row>
+                                        
                                         <Col span={24}>
                                             <b>CÂU HỎI SỐ {index + 1}</b>
+                                            
                                         </Col>
                                         <Col span={24}>
                                             <Form.Item
-                                                // label="Nhập nội dung câu hỏi" 
+                                                {...cauhoi} 
                                                 name={['danhSachCauHoi', index, 'noi_dung']}
                                                 rules={[{
                                                     required: true,
                                                     message: 'Nội dung câu hỏi không được để trống'
                                                 },]}>
                                                 <TextArea placeholder="nhập nội dung câu hỏi" />
+                                                {/* <MinusCircleOutlined onClick={() => remove(cauhoi.name)} /> */}
                                             </Form.Item>
                                         </Col>
                                         <Col span={24}>
@@ -214,14 +219,14 @@ const Themmoibaitest = () => {
                                                         </Col>)}
                                                     </Row>
                                                 </Checkbox.Group>
-                                                {/* <MinusCircleOutlined onClick={() => remove(danhSachCauHoi)} /> */}
+                                                
                                             </Form.Item>
-
                                         </Col>
                                     </Row>)}
                                     <Col span={24}>
                                         <Button type="dashed" onClick={taoCauHoi} name='danhSachCauHoi' block icon={<PlusOutlined />}> Tạo mới câu hỏi </Button>
                                     </Col>
+                                    
                                     <Col span={6}>
                                         {pageType.chiTiet == currentPageType ?
                                             <Button

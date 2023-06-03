@@ -23,24 +23,16 @@ const Listtuyendung = (value) => {
     //     })
 
     // };
-    const getDSVT = async (id) => {
-        const res = await axios.get(apiConstants.DANH_SACH_VI_TRI);
+    const getDSVT = async () => {
+        const res = await axios.get(apiConstants.CHI_TIET_DOT_TUYEN_DUNG_GAN_NHAT);
         console.log(res);
-        let newData = res.data.data.danhsach.map(row => {
-            return {
-                _id: row._id,
-                ten_vi_tri: row.ten_vi_tri,
-                mo_ta: row.mo_ta,
-                ma_vi_tri: row.ma_vi_tri,
-            }
-        })
+        let newData = await res.data.data.danhsach[0].vi_tri
+        console.log(newData);
         setDSVT(newData);
+        // console.log(newData)
+        // console.log(res);
+        
     };
-    // useEffect(() => {
-    //     if (id) {
-    //     getDSVT(id);}
-    // }, [id]);
-
     useEffect(() => {
         getDSVT();
     }, []);
@@ -64,7 +56,7 @@ const Listtuyendung = (value) => {
                 }]}
                 align="middle"
             >
-                {danhSachViTri.map(danhsach =>
+                {danhSachViTri.map(vi_tri =>
                     <Col span={5}>
                         <Card
                             className='cardvitri'
@@ -75,17 +67,17 @@ const Listtuyendung = (value) => {
                             <Col>
                                 <Row align="middle">
                                     <Title level={4}>
-                                        {danhsach.ten_vi_tri}
+                                        {vi_tri.ten_vi_tri}
                                     </Title>
                                 </Row>
                                 <Divider />
                                 <Row align="middle">
                                     <Text style={{ fontSize: 18 }} type="secondary">
-                                        {danhsach.mo_ta}
+                                    {vi_tri.mo_ta}
                                     </Text>
                                 </Row>
                                 <Row align="middle" style={{ paddingTop: '10px' }}>
-                                    <Button onClick={() => Navigate(`chittiet/${danhsach._id}`)}>xem thêm
+                                    <Button onClick={() => Navigate(`chittiet/${vi_tri.id_vi_tri}`)}>xem thêm
                                     </Button>
                                 </Row>
                             </Col>

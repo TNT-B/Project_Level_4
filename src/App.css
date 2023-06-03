@@ -126,6 +126,8 @@
   width: 60%;
   object-fit: fill;
   margin: 0 auto;
+  border-radius: 86px;
+  border: 1px #cccccc;
 }
 
 .ant-card .ant-card-head {

@@ -127,7 +127,7 @@ const DanhSachDotTuyenDung = () => {
     <>
       <Row>
         <Breadcrumb>
-          <Breadcrumb.Item><Link to={'/admin'} >Trang chủ</Link></Breadcrumb.Item>
+          <Breadcrumb.Item><Link to={'/admin/dottuyendung'} >Trang chủ</Link></Breadcrumb.Item>
           <Breadcrumb.Item><Link to={'/admin/dottuyendung'} >Danh sách đợt tuyển dụng</Link></Breadcrumb.Item>
         </Breadcrumb>
       </Row>

@@ -10,28 +10,12 @@ const Listtuyendung = (value) => {
     const Navigate = useNavigate();
     const { id } = useParams();
     const [danhSachViTri, setDSVT] = useState([]);
-    // const getCTVT = async (id) => {
-    //     const res = await axios.get(apiConstants.CHI_TIET_VI_TRI(id));
-    //     console.log(res);
-    //     let newData = res.data.data.danhsach.map(row => {
-    //         return {
-    //             _id: row._id,
-    //             ten_vi_tri: row.ten_vi_tri,
-    //             mo_ta: row.mo_ta,
-    //             ma_vi_tri: row.ma_vi_tri,
-    //         }
-    //     })
-
-    // };
     const getDSVT = async () => {
         const res = await axios.get(apiConstants.CHI_TIET_DOT_TUYEN_DUNG_GAN_NHAT);
         console.log(res);
         let newData = await res.data.data.danhsach[0].vi_tri
         console.log(newData);
         setDSVT(newData);
-        // console.log(newData)
-        // console.log(res);
-        
     };
     useEffect(() => {
         getDSVT();
@@ -46,7 +30,7 @@ const Listtuyendung = (value) => {
                 display: 'flex',
                 paddingBottom: '10px',
             }}>
-            <Divider><Title align="center">Vị trí tuyển dụng</Title></Divider>
+            <Divider><Title level={2} align="center">Vị trí tuyển dụng</Title></Divider>
             <Row
                 gutter={[16, {
                     xs: 8,

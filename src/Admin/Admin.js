@@ -7,7 +7,8 @@ import {
   MenuFoldOutlined,
   UserOutlined,
   VideoCameraOutlined,
-  UploadOutlined,
+  AppstoreOutlined,
+  DatabaseOutlined,
 } from "@ant-design/icons";
 import logo from "../assets/images/logo.png";
 import logoa from "../assets/images/logo-a.png";
@@ -69,14 +70,17 @@ export default function Admin() {
           mode="inline"
           onClick={(e) => setSelectedMenuItem(e.key)}
         >
-          <Menu.Item key="item1" icon={<UserOutlined />}>
+          <Menu.Item key="item1" icon={<AppstoreOutlined />}>
             <Link to="quan-li-vi-tri">Quản lý vị trí </Link>
           </Menu.Item>
-          {/* <Menu.Item key="item2" icon={<VideoCameraOutlined />}>
-            <span>Quản lý tuyển dụng</span>
-          </Menu.Item> */}
+          <Menu.Item key="item2" icon={<DatabaseOutlined />}>
+            <Link to="dottuyendung">Quản lý tuyển dụng</Link>
+          </Menu.Item>
           <Menu.Item key="item3" icon={<VideoCameraOutlined />}>
             <Link to="quan-li-bai-test">Quản lý bài test</Link>
+          </Menu.Item>
+          <Menu.Item key="item4" icon={<UserOutlined />}>
+            <Link to="ungvien">Quản lý ứng viên</Link>
           </Menu.Item>
         </Menu>
       </Sider>
@@ -120,14 +124,16 @@ export default function Admin() {
         >
           {/* {//componentsSwitch(selectedMenuItem)} */}
           <Routes>
-          <Route path="quan-li-vi-tri" element={<QLViTri />} />
+            <Route path="quan-li-vi-tri" element={<QLViTri />} />
             <Route path="login" element={<Login />} />
             <Route path="dottuyendung/create" element={<TaoDotTuyenDung />} />
             <Route path="dottuyendung/chitiet/:idDotTuyenDung" element={<ChiTietDotTuyenDung />} />
-            <Route path="dottuyendung/edit/:idDotTuyenDung" element={<EditDotTuyenDung/>} />
+            <Route path="dottuyendung/edit/:idDotTuyenDung" element={<EditDotTuyenDung />} />
             <Route path="dottuyendung" element={<DanhSachDotTuyenDung />} />
             <Route path="ungvien" element={<DanhSachUngVien />} />
             <Route path="test" element={<Test />} />
+            <Route path="quan-li-bai-test" element={<QLBaitest />} />
+            <Route path="quan-li-bai-test/:pageType/:id?" element={<Themmoibaitest />} />
           </Routes>
         </Content>
       </Layout>

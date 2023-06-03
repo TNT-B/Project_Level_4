@@ -20,7 +20,7 @@ const App = () => {
         <Route path="/" element={<LandingPage />} />
         <Route path="chittiet/:id?" element={<Tuyendungscreen />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/admin/*" element={<Admin />} />
+        <Route path="/admin*" element={<Admin />} />
         <Route path="/questions/:id" element={<TestQuestion />} />
       </Routes>
     </BrowserRouter>

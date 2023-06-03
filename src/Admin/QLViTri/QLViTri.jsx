@@ -1,17 +1,18 @@
 import React, { useEffect, Fragment, useState } from "react";
-import { Select, Input, Table, Button, Space, Card } from "antd";
+import { Select, Input, Table, Button, Space, Card, Row, Col, Breadcrumb, Form, Layout } from "antd";
 import ModalViTri from "./ModalViTri";
 import { apiConstants } from "../../Const/api";
 import axios from "axios";
-
+import { Link } from "react-router-dom";
 import SuaVitri from "./SuaViTri";
 import XoaVitri from "./XoaViTri";
+import './QlViTri.css';
 
 const Search = Input.Search;
 const initState = {
   selectedRowKeys: [],
 };
-
+const { Content } = Layout;
 export default function QLViTri() {
   const updateFunction = () => {
     // if (params === "function") ;
@@ -43,13 +44,15 @@ export default function QLViTri() {
       key: "action",
       render: (text, record) => (
         <Space size="middle">
-          <SuaVitri
+          <Button>
+            <SuaVitri
             Id={record._id}
             MaViTri={record.ma_vi_tri}
             TenViTri={record.ten_vi_tri}
             MoTa={record.mo_ta}
             updateFunction={updateFunction}
           />
+          </Button>
           <XoaVitri MaViTri={record.ma_vi_tri} />
         </Space>
       ),
@@ -70,7 +73,6 @@ export default function QLViTri() {
   const renderTable = () => {
     return (
       <Table
-        size="small"
         columns={columns}
         dataSource={danhSachViTri}
         rowKey={(record) => record.key}
@@ -78,22 +80,46 @@ export default function QLViTri() {
     );
   };
   return (
-    <Card title="Quản lý vị trí" className="gx-card">
-      <div className="table-operations">
-        <Space size="small" style={{ paddingBottom: 20 }}>
-          <Search
-            size="small"
-            // ref={searchText}
-            // suffix={suffix}
-
-            placeholder="Tìm kiếm"
-            style={{ width: 200 }}
-          />
-          {/* <Button size="small">Làm mới</Button> */}
-          <ModalViTri onSuccess={getDSVT} />
-        </Space>
-      </div>
-      {renderTable()}
-    </Card>
+    <>
+      <Row>
+        <Breadcrumb>
+          <Breadcrumb.Item><Link to={'/admin/dottuyendung'} >Trang chủ</Link></Breadcrumb.Item>
+          <Breadcrumb.Item><Link to={'/admin/quan-li-vi-tri'} >Danh sách vị trí</Link></Breadcrumb.Item>
+        </Breadcrumb>
+      </Row>
+      <Row>
+        <h1 style={{ fontSize: "25px", color: "#191970", marginBottom: "40px", marginTop: "10px" }}>QUẢN LÍ VỊ TRÍ</h1>
+      </Row>
+      <Row>
+        <Col span={10}>
+          <Form.Item className="form-input" labelCol={{
+            xs: { span: 24 },
+            sm: { span: 8 },
+          }} >
+            <Input placeholder="Tìm kiếm vị trí"/>
+            {/* <Search
+                size="small"
+                placeholder="Tìm kiếm vị trí"
+                style={{ width: 200 }}
+              /> */}
+          </Form.Item>
+        </Col>
+        <Col span={6}>
+          <Button> <ModalViTri onSuccess={getDSVT} /> </Button>
+        </Col>
+      </Row>
+      <Row>
+        <Content className="testlist-CTB"
+          style={{
+            padding: '0 5px',
+          }}>
+          <Row style={{ marginTop: "30px" }}>
+            <Col span={24}>
+              {renderTable()}
+            </Col>
+          </Row>
+        </Content>
+      </Row>
+    </>
   );
 }

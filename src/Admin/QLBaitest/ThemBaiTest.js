@@ -8,7 +8,7 @@ import {
 import axios from "axios";
 import TextArea from "antd/es/input/TextArea";
 import { useForm } from "antd/es/form/Form";
-import { useParams } from "react-router";
+import { Navigate, useNavigate, useParams } from "react-router";
 import { pageType } from "../../Const/constant";
 import { apiConstants } from "../../Const/api";
 
@@ -18,6 +18,7 @@ const Themmoibaitest = () => {
     const {
         token: { colorBgContainer },
     } = theme.useToken();
+    const Navigate = useNavigate();
     const { id,pageType:currentPageType} = useParams();
     const {Content} = Layout;
     const [danhsachvitri, setDanhSachViTri] = useState([]);
@@ -62,13 +63,15 @@ const Themmoibaitest = () => {
                 notification.destroy()
                 notification.success({
                     message: 'Thêm bài test thành công',
-
-                })})
+                })
+                Navigate('/admin/quan-li-bai-test')
+            })
             .catch((error) =>{
                 notification.destroy()
                 notification.error({
                     message: 'Thêm bài test thất bại',
-                })})
+                })
+            })
     }
     const putBaiTest = async () => {
         const danhSachCauHoi = form.getFieldValue('danhSachCauHoi') ?? [];
@@ -87,8 +90,9 @@ const Themmoibaitest = () => {
                 notification.destroy()
                 notification.success({
                     message: 'Cập nhật bài test thành công',
-
-                })})
+                })
+                Navigate('/admin/quan-li-bai-test')
+            })
             .catch((error) =>{
                 notification.destroy()
                 notification.error({

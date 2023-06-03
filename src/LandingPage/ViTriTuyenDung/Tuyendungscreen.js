@@ -51,10 +51,10 @@ const Tuyendungscreen = () => {
                         <img className='imgheaderchitiet' src='../img/7.png' />
                         <Row style={{ paddingTop: '10px' }}>
                             <Title
-                                level={1}
+                                level={2}
                                 className="titlechitiet "
                                 align="center"
-                                style={{ color: 'white' }}>
+                                style={{ color: 'white',fontSize:"30px" }}>
                                 Hãy tham gia cùng chúng tôi
                             </Title>
                             <Title
@@ -62,16 +62,10 @@ const Tuyendungscreen = () => {
                                 className="titlechitiet "
                                 align="center"
                                 style={{ color: 'white', paddingTop:"10px" }}>
-                                với cương vị là <Title 
+                                với cương vị là 
+                                <Title level={2}
                                 style={{ color: 'yellow', paddingTop:"10px" }}>{data.ten_vi_tri}</Title> 
                             </Title>
-                            {/* <Title
-                                level={1}
-                                className="titlechitiet "
-                                align="center"
-                                style={{ color: 'white'}}>
-                                Ngay hôm nay
-                            </Title> */}
                         </Row>
                     </Row>
                     <Row style={{ paddingTop: '50px', paddingLeft:'50px', background: '#EEEEEE' }}>

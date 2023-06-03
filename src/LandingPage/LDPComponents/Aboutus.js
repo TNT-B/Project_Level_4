@@ -11,7 +11,7 @@ const Aboutus = () => (
             display: 'block',
             paddingBottom: '10px',
         }}>
-        <Title align="center" style={{color:'white'}}>Về Chúng Tôi</Title>
+        <Title level={2} align="center" style={{color:'white'}}>Về Chúng Tôi</Title>
         <Row gutter={16} align="middle" style={{paddingTop:'50px'}}>
             <Col span={6}>
                 <Card size="large" align="center">

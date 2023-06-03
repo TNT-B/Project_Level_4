@@ -7,7 +7,7 @@ import {
   DatePicker,
   Form,
   Input,
-  Typography, Table, Space, Row, Col
+  Typography, Table, Space, Row, Col, Breadcrumb
 } from 'antd';
 import { Link, useNavigate } from "react-router-dom";
 import Xoabaitest from './XoaBaiTest.JS';
@@ -145,15 +145,21 @@ const QLBaitest = () => {
   return (
     <>
       <Row>
+        <Breadcrumb>
+          <Breadcrumb.Item><Link to={'/admin/dottuyendung'} >Trang chủ</Link></Breadcrumb.Item>
+          <Breadcrumb.Item><Link to={'/admin/quan-li-bai-test'} >Danh sách bài test</Link></Breadcrumb.Item>
+        </Breadcrumb>
+      </Row>
+      <Row>
         <Col span={24}>
           <h1 style={{ fontSize: "25px", color: "#191970", marginBottom: "40px", marginTop: "10px" }}>DANH SÁCH BÀI KIỂM TRA</h1>
         </Col>
-        <Col span={6}>
-          <Form.Item className="form-input" label="Tên bài kiểm tra" labelCol={{
+        <Col span={10}>
+          <Form.Item className="form-input" labelCol={{
             xs: { span: 24 },
             sm: { span: 8 },
           }} >
-            <Input placeholder="Tìm kiếm" onChange={(e) => setKeyword(e.target.value)} style={{ width: 300, }} />
+            <Input placeholder="Tìm kiếm bài kiểm tra" onChange={(e) => setKeyword(e.target.value)} />
           </Form.Item>
         </Col>
         {/* <Col span={6}>
@@ -164,7 +170,7 @@ const QLBaitest = () => {
             <Select placeholder="Nhập vị trí" options={danhsachvitri} style={{ width: 300, }} />
           </Form.Item>
         </Col> */}
-        <Col span={2}>
+        <Col span={6}>
           <Form.Item className="form-button" wrapperCol={{
             offset: 2,
             span: 16,
@@ -172,12 +178,12 @@ const QLBaitest = () => {
             <Button type='primary' onClick={(e) => getData(keyword, idViTri)}  >Tìm Kiếm</Button>
           </Form.Item>
         </Col>
-        <Col span={2}>
+        <Col span={8} style={{ display: "flex", justifyContent: "flex-end" }}>
           <Form.Item className="form-button" labelCol={{
             xs: { span: 24 },
             sm: { span: 8 },
           }} >
-            <Button type='primary' className='button-to-newtest' onClick={() => navigate(`${pageType.taoMoi}`)}>Tạo mới</Button>
+            <Button type='primary'  onClick={() => navigate(`${pageType.taoMoi}`)}>+ Tạo mới</Button>
           </Form.Item>
         </Col>
       </Row>

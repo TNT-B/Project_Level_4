@@ -34,17 +34,17 @@ const LandingPage = () => {
                         <img className='imgheaderchitiet' src='../img/7.png' />
                         <Row style={{ paddingTop: '10px' }}>
                             <Title
-                                level={1}
+                                level={2}
                                 className="titlechitiet "
                                 align="center"
-                                style={{ color: 'white' }}>
+                                style={{ color: 'white',fontSize:"50px"}}>
                                 Hãy tham gia cùng chúng tôi
                             </Title>
                             <Title
                                 level={2}
                                 className="titlechitiet "
                                 align="center"
-                                style={{ color: 'white', paddingTop: "10px" }}>
+                                style={{ color: 'white', paddingTop: "30px" }}>
                                 Hơn 10.000 vị trí đang chờ bạn
                             </Title>
                             <Button

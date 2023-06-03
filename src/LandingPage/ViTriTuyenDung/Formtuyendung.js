@@ -3,7 +3,7 @@ import { InboxOutlined, PlusOutlined } from '@ant-design/icons';
 import { useForm } from 'antd/es/form/Form';
 import axios from "axios";
 import { apiConstants } from "../../Const/api";
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { useEffect, useState } from 'react';
 
 const { Dragger } = Upload;
@@ -42,6 +42,7 @@ const Formtuyendung = () => {
     const [data, setData] = useState();
     const [api, contextHolder] = notification.useNotification();
     const [form] = useForm();
+    const navigate = useNavigate()
     const [danhSachViTri, setDSVT] = useState([]);
     const getCTVT = async (id) => {
         const res = await axios.get(apiConstants.CHI_TIET_VI_TRI(id));
@@ -108,6 +109,8 @@ const Formtuyendung = () => {
                 notification.success({
                     message: 'Nộp đơn ứng tuyển thành công',
                 })
+                navigate('/')
+                
             })
             .catch((error) => {
                 notification.destroy()

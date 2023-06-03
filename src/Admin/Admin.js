@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import { Layout, Menu, Popover, Row, Col } from "antd";
 import USER from "../Images/profile/pic1.jpg";
 
@@ -17,17 +17,18 @@ import DanhSachDotTuyenDung from "./QLDotTuyenDung/DanhSachDotTuyenDung";
 import TaoDotTuyenDung from "./QLDotTuyenDung/TaoDotTuyenDung";
 import ChiTietDotTuyenDung from "./QLDotTuyenDung/ChiTietDotTuyenDung";
 import EditDotTuyenDung from "./QLDotTuyenDung/EditDotTuyenDung";
-import CapNhatDotTuyenDung from "./QLDotTuyenDung/CapNhatDotTuyenDung";
 import Test from "./QLDotTuyenDung/ungVienDotTuyenDung";
 import DanhSachUngVien from "./QLUngVien/DanhSachUngVien";
 import Login from "../Auth/Login";
+import ThemeContextProvider, { ThemeContext } from "./Context/ThemeContext";
 
 const { Header, Sider, Content } = Layout;
 
 export default function Admin() {
+  const { isLogin, setIsLogin, userName, setUserName } = useContext(ThemeContext)
   const [collapsed, setCollapsed] = useState({ collapsed: true });
   const [selectedMenuItem, setSelectedMenuItem] = useState("item1");
-
+  let navigate = useNavigate()
   const toggle = () => {
     setCollapsed((collapsed) => !collapsed);
   };
@@ -42,24 +43,32 @@ export default function Admin() {
         break;
     }
   };
+
+  const handleDangXuat = () => {
+    setIsLogin(false)
+    setUserName()
+    sessionStorage.removeItem('isLogin')
+    sessionStorage.removeItem('username')
+    navigate('/admin/login')
+  }
+  
   const content = (
     <Menu>
       <Menu.Item>
-        <Link to="/profile">Hồ sơ</Link>
-      </Menu.Item>
-      <Menu.Item>
-        <Link to="/" onClick={() => {}}>
+        <Link onClick={() => handleDangXuat()}>
           Đăng xuất
         </Link>
       </Menu.Item>
     </Menu>
   );
+
   return (
+
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="logo" >
           <Link to="/admin">
-            <img src={collapsed ? logoa : logo} alt="" style={{width:"100%"}}/>
+            <img src={collapsed ? logoa : logo} alt="" style={{ width: "100%" }} />
           </Link>
         </div>
         <Menu
@@ -97,9 +106,9 @@ export default function Admin() {
                       src={USER}
                       width={40}
                       alt={"Binh"}
-                      style={{verticalAlign:"middle", borderRadius:"50%"}}
+                      style={{ verticalAlign: "middle", borderRadius: "50%" }}
                     /> &nbsp;&nbsp;
-                    {"user.hoTen"}
+                    {!isLogin ? "Đăng nhập" : `${userName}`}
                   </span>
                 </a>
               </Popover>
@@ -115,17 +124,17 @@ export default function Admin() {
             minHeight: "100vh",
           }}
         >
-          {/* {//componentsSwitch(selectedMenuItem)} */}
-          <Routes>
-            <Route path="quan-li-vi-tri" element={<QLViTri />} />
-            <Route path="login" element={<Login />} />
-            <Route path="dottuyendung/create" element={<TaoDotTuyenDung />} />
-            <Route path="dottuyendung/chitiet/:idDotTuyenDung" element={<ChiTietDotTuyenDung />} />
-            <Route path="dottuyendung/edit/:idDotTuyenDung" element={<EditDotTuyenDung/>} />
-            <Route path="dottuyendung" element={<DanhSachDotTuyenDung />} />
-            <Route path="ungvien" element={<DanhSachUngVien />} />
-            <Route path="test" element={<Test />} />
-          </Routes>
+          {!isLogin ? <Login /> :
+            (<Routes>
+              <Route path="quan-li-vi-tri" element={<QLViTri />} />
+              <Route path="login" element={<Login />} />
+              <Route path="dottuyendung/create" element={<TaoDotTuyenDung />} />
+              <Route path="dottuyendung/chitiet/:idDotTuyenDung" element={<ChiTietDotTuyenDung />} />
+              <Route path="dottuyendung/edit/:idDotTuyenDung" element={<EditDotTuyenDung />} />
+              <Route path="dottuyendung" element={<DanhSachDotTuyenDung />} />
+              <Route path="ungvien" element={<DanhSachUngVien />} />
+              <Route path="test" element={<Test />} />
+            </Routes>)}
         </Content>
       </Layout>
     </Layout>

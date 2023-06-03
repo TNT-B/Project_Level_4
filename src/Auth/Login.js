@@ -2,9 +2,12 @@ import { Button, Col, Form, Input, Row, message } from "antd";
 import { apiConstants } from "../Const/api";
 import axios from "axios";
 import { useNavigate } from "react-router";
+import { useContext } from "react";
+import { ThemeContext } from "../Admin/Context/ThemeContext";
 
 const Login = () => {
   const navigate = useNavigate()
+  const { isLogin, setIsLogin ,userName, setUserName} = useContext(ThemeContext)
   const onFinish = async (values) => {
     try {
       try {
@@ -21,7 +24,11 @@ const Login = () => {
 
         if(result.data.status == "true"){
           message.info(result.data.message)
-          navigate('/admin/dottuyendung')
+          setIsLogin(true)
+          sessionStorage.setItem('isLogin',true)
+          setUserName(result.data.data.cbnv.username)
+          sessionStorage.setItem('username',result.data.data.cbnv.username)
+          navigate('/admin/dottuyendung')       
         }
       } catch (error) {
         console.log(error.response.data.message);

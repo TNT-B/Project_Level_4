@@ -1,5 +1,5 @@
 import { Button, Checkbox, Col, Form, Input, Popconfirm, Row, Space, message, Table, Tag, Breadcrumb } from 'antd';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import axios from "axios";
 import { apiConstants } from '../../Const/api';
 import { formatDate } from '../../Const/functions';
@@ -7,8 +7,10 @@ import moment from 'moment';
 import { useLocation, useNavigate } from 'react-router';
 import './dotTuyenDung.css';
 import { Link } from 'react-router-dom';
+import { ThemeContext } from '../Context/ThemeContext';
 
 const DanhSachDotTuyenDung = () => {
+  const { isLogin, setIsLogin } = useContext(ThemeContext)
   const [danhSachDotTuyenDung, setDanhSachDotTuyenDung] = useState([]);
   // const location = useLocation();
   const [searchTerm, setSearchTerm] = useState('')
@@ -23,11 +25,11 @@ const DanhSachDotTuyenDung = () => {
       },
       url: `${apiConstants.DANH_SACH_DOT_TUYEN_DUNG}?term=${searchTerm}`,
       data: null,
-    }) 
+    })
 
     console.log(res);
 
-    if(res.data.status == "false"){
+    if (res.data.status == "false") {
       message.error("Không tìm thấy danh sách đợt tuyển dụng tương ứng")
       setDanhSachDotTuyenDung([])
       return

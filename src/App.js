@@ -1,19 +1,32 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import './App.css';
-import Homescreen from './Screen/Homescreen';
-import Tuyendungscreen from './Screen/Tuyendungscreen';
-import Testlist from './Screen/TestList';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./App.css";
+import "./assets/css/style.css";
+import "./assets/css/typography.css";
+import "./assets/css/shortcodes/shortcodes.css";
+import "./assets/css/style.css";
+import "./assets/css/color/color-1.css";
 
+import LandingPage from "./LandingPage/LandingPage";
+import Login from "./Auth/Login";
+import Admin from "./Admin/Admin";
+import ThemeContextProvider from "./Admin/Context/ThemeContext";
+import Tuyendungscreen from "./LandingPage/ViTriTuyenDung/Tuyendungscreen";
+import TestQuestion from "./Question/TestQuestion";
 
 const App = () => {
+  //test
   return (
- <BrowserRouter>
- <Routes>
-  <Route path='/' element={<Homescreen />}/>
-  <Route path='/vitrituyendung' element={<Tuyendungscreen />}/>
-  <Route path='/quanlibaitest' element={<Testlist/>}/>
- </Routes>
- </BrowserRouter>
+    <BrowserRouter>
+      <ThemeContextProvider>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="chittiet/:id?" element={<Tuyendungscreen />} />
+        <Route path="/login" element={<Login />} />
+          <Route path="/admin*" element={<Admin />} />
+          <Route path="/questions/:id" element={<TestQuestion />} />
+      </Routes>
+      </ThemeContextProvider>
+    </BrowserRouter>
   );
 };
 export default App;

@@ -49,7 +49,7 @@ export default function Admin() {
         <Link to="/profile">Hồ sơ</Link>
       </Menu.Item>
       <Menu.Item>
-        <Link to="/" onClick={() => {}}>
+        <Link to="/" onClick={() => { }}>
           Đăng xuất
         </Link>
       </Menu.Item>

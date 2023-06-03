@@ -20,4 +20,6 @@ export const apiConstants = {
   CHI_TIET_BAI_TEST: (id) => `${API_HOST}/baitest/chitiet?idbaitest=${id}`,
   TAO_BAI_TEST: `${API_HOST}/baitest/createbaitest`,
   CAP_NHAT_BAI_TEST: `${API_HOST}/baitest`,
+
+  NOP_BAI_TEST: `${API_HOST}/baitest/nopbaitest`
 };

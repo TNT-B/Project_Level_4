@@ -4,11 +4,18 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { apiConstants } from "../Const/api";
 import FormItem from "antd/es/form/FormItem";
+import { useLocation, useParams } from "react-router";
+import { Button, Modal } from 'antd';
+import { useSearchParams } from "react-router-dom";
 
 function TestQuestion() {
   const [time, setTime] = useState(5);
+  const [modal, setModal] = useState(false)
+  const [start, setStart] = useState(false)
   const [test, setTest] = useState({});
   const [pickAns, setPickAns] = useState(0);
+  const { pathname } = useLocation();
+  //  object de trucstering
 
   const [form] = Form.useForm();
   const answers = Form.useWatch("answers", form);
@@ -20,6 +27,11 @@ function TestQuestion() {
       form.setFieldValue("danhSachCauHoi", res.data.data[0].cau_hoi);
     });
   };
+
+  const handleStart = () => {
+    setStart(true);
+    console.log(start)
+  }
 
   useEffect(() => {
     let cnt = 0;
@@ -42,36 +54,28 @@ function TestQuestion() {
   // };
 
   useEffect(() => {
-    const id = "6438f9da2ebb1a4ee038227e";
-    fetchTest(id);
+    let id = pathname.split('/')
+    fetchTest(id[2])
   }, []);
 
   useEffect(() => {
-    if (time === 0) return;
-    const interval = setInterval(() => {
+    if (time === 0) {
+      setModal(true)
+      return;
+    };
+    const interval = start === true && setInterval(() => {
       setTime((time) => time - 1);
     }, 1000);
+    console.log(modal)
 
     return () => clearInterval(interval);
-  }, [time]);
-
-  // fucntion check = ()=>{
-
-  //   dapandung.forEach((item)=>{
-  //     [0,1]
-  //     if (!mkq.includes(item)) return false;
-  //   })
-  //   return true
-  // }
-  // fucntion check = ()=>{
-  //   for(i=0;i<<navigator;i++)
-  //     if (!mkq.includes(i)) return false;
-
-  //   return true
-  // }
+  }, [time, start, modal]);
 
   return (
     <Form form={form}>
+      <Modal title="Thong bao toi gio m cut' " closable={false} open={modal} footer={null}>
+        may cut con me m ra nha
+      </Modal>
       <div className="container">
         <div className="header">
           <div className="header-title">
@@ -79,6 +83,7 @@ function TestQuestion() {
           </div>
         </div>
         <div className="notification">
+
           <h3>Time Left : {time}</h3>
           <h4>The remaining questions : {test?.cau_hoi?.length - pickAns}/{test?.cau_hoi?.length}</h4>
         </div>
@@ -113,6 +118,7 @@ function TestQuestion() {
           })}
         </Form.Item>
       </div>
+      <button onClick={handleStart}>bắt đầu làm bài kiểm tra</button>
     </Form>
   );
 }

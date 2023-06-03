@@ -22,18 +22,18 @@ const Xoabaitest = (value) => {
     setModalText("đang thực hiện việc xóa bài test...");
     setConfirmLoading(true);
     try {
-      await axios.delete('https://quan-ly-tuyen-dung-be.onrender.com/baitest',{
-      data: {id : value.id}
-    });
-    // show notification success 
-    } catch (error) { 
+      await axios.delete('https://quan-ly-tuyen-dung-be.onrender.com/baitest', {
+        data: { id: value.id }
+      });
+      // show notification success 
+    } catch (error) {
       // show notification error
 
     } finally {
       setConfirmLoading(false);
       value.onSuccess && value.onSuccess();
     }
-    
+
   };
 
   return (

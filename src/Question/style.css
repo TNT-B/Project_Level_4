@@ -65,8 +65,35 @@
   top: 5px;
   right: 20px;
   max-width: 45%;
+  outline-style: double;
+  outline-color: #fd9240;
+  padding: 5px;
 }
 
 .header-title {
   max-width: 50%;
+  display: flex;
+  justify-content: center;
+  margin-left: 25%;
+}
+
+.info {
+  font-weight: bold;
+}
+
+.buttonSubmit {
+  background-color: #fd9240 !important;
+  font-size: large;
+  padding: 10px;
+  margin-left: 50%;
+  border-radius: 30px;
+  flex-direction: top 20px;
+}
+
+.ant-btn css-dev-only-do-not-override-w8mnev ant-btn-primary {
+  background-color: #fd9240 !important;
+}
+
+.ant-btn css-dev-only-do-not-override-w8mnev ant-btn-default {
+  background-color: #fd9240 !important;
 }

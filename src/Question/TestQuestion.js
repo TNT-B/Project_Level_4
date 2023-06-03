@@ -7,15 +7,17 @@ import FormItem from "antd/es/form/FormItem";
 import { useLocation, useParams } from "react-router";
 import { Button, Modal } from 'antd';
 import { useSearchParams } from "react-router-dom";
+import { Color } from "@rc-component/color-picker";
 
 function TestQuestion() {
-  const [time, setTime] = useState(5);
-  const [modal, setModal] = useState(false)
+  const [time, setTime] = useState(360);
+  const [modalDone, setModalDone] = useState(false)
+  const [modalStart, setModalStart] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [start, setStart] = useState(false)
   const [test, setTest] = useState({});
   const [pickAns, setPickAns] = useState(0);
-  const { pathname } = useLocation();
-  //  object de trucstering
+  const { pathname } = useLocation(); //  object de trucstering
 
   const [form] = Form.useForm();
   const answers = Form.useWatch("answers", form);
@@ -28,54 +30,90 @@ function TestQuestion() {
     });
   };
 
+  const handleSubmit = () => {
+    // let id = pathname.split('/')
+    // let myItems;
+    // if (answers) {
+    //   Object.values(answers)?.forEach((item) => {
+    //     if (item?.length > 0) {
+    //       myItems = item;
+    //     }
+    //   });
+    //   console.log("itemmy", myItems)
+    //   axios
+    //     .put(apiConstants.NOP_BAI_TEST, { id: id[2], data: answers })
+    //     .then((response) => {
+    //       // setInputs({ updatedAt: response.data.updatedAt });
+    //     })
+    //   // .finally(updateFunction());
+    // };
+  }
+
   const handleStart = () => {
     setStart(true);
     console.log(start)
   }
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+    setStart(true);
+  };
 
   useEffect(() => {
     let cnt = 0;
     if (answers) {
       Object.values(answers)?.forEach((item) => {
-        if (item?.length > 0) cnt++;
+        if (item?.length > 0) {
+          cnt++;
+          console.log("item", item);
+          console.log("answer", answers);
+        }
       });
       setPickAns(cnt);
-      console.log("cnt", cnt);
+
     }
   }, [answers]);
 
-  // const DecTime = () => {
-  //   setTime(time - 1);
-  //   console.log(`day la time : ${time}`);
-  // };
+  // console.log("answer", answer);
 
-  // const DecQuestion = () => {
-  //   setQuestion(question - 1);
-  // };
 
   useEffect(() => {
     let id = pathname.split('/')
     fetchTest(id[2])
-  }, []);
+    showModal();
+    setModalStart(true)
+    // console.log("id", id);
+  }, [modalStart]);
 
   useEffect(() => {
     if (time === 0) {
-      setModal(true)
+      setModalDone(true)
       return;
     };
     const interval = start === true && setInterval(() => {
       setTime((time) => time - 1);
     }, 1000);
-    console.log(modal)
-
+    console.log(modalDone)
     return () => clearInterval(interval);
-  }, [time, start, modal]);
+  }, [time, start, modalDone]);
 
   return (
     <Form form={form}>
-      <Modal title="Thong bao toi gio m cut' " closable={false} open={modal} footer={null}>
-        may cut con me m ra nha
+      <Modal title="Hết giờ làm bài !" closable={false} open={modalDone} footer={null} >
+
       </Modal>
+
+      <Modal title="Bắt đầu làm bài kiểm tra !" open={isModalOpen} closable={false} onOk={handleOk}>
+        Chọn OK để bắt đầu làm bài, bài làm sẽ tự động nộp khi hết thời gian làm test và chỉ được làm test 1 lần duy nhất.
+
+      </Modal>
+      {/* <Button onClick={handleStart}>bắt đầu làm bài kiểm tra</Button> */}
       <div className="container">
         <div className="header">
           <div className="header-title">
@@ -84,8 +122,13 @@ function TestQuestion() {
         </div>
         <div className="notification">
 
-          <h3>Time Left : {time}</h3>
-          <h4>The remaining questions : {test?.cau_hoi?.length - pickAns}/{test?.cau_hoi?.length}</h4>
+          {/* <p>Time Left :
+            <span className="info">{Math.round({ time } / 3600)} giờ </span>
+            <span className="info">{Math.round({ time } / 60)} phút </span>
+            <span className="info">{time} giây </span>
+          </p> */}
+          <p>Time left : <span className="info">{time}</span></p>
+          <p>The remaining questions : <span className="info">{test?.cau_hoi?.length - pickAns}/{test?.cau_hoi?.length}</span> </p>
         </div>
 
         <Form.Item name="answers" trigger="">
@@ -113,12 +156,15 @@ function TestQuestion() {
                     })}
                   </Checkbox.Group>
                 </Form.Item>
+                {/* <Button></Button> */}
               </fieldset>
             );
           })}
         </Form.Item>
       </div>
-      <button onClick={handleStart}>bắt đầu làm bài kiểm tra</button>
+      <button className="buttonSubmit" onClick={handleSubmit}> Submit </button>
+      <p><br /></p>
+
     </Form>
   );
 }

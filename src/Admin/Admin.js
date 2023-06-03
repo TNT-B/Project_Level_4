@@ -12,6 +12,14 @@ import {
 import logo from "../assets/images/logo.png";
 import logoa from "../assets/images/logo-a.png";
 import QLViTri from "./QLViTri/QLViTri";
+import DanhSachDotTuyenDung from "./QLDotTuyenDung/DanhSachDotTuyenDung";
+import TaoDotTuyenDung from "./QLDotTuyenDung/TaoDotTuyenDung";
+import ChiTietDotTuyenDung from "./QLDotTuyenDung/ChiTietDotTuyenDung";
+import EditDotTuyenDung from "./QLDotTuyenDung/EditDotTuyenDung";
+import CapNhatDotTuyenDung from "./QLDotTuyenDung/CapNhatDotTuyenDung";
+import Test from "./QLDotTuyenDung/Test";
+import DanhSachUngVien from "./QLUngVien/DanhSachUngVien";
+import Login from "../Auth/Login";
 import QLBaitest from "./QLBaitest/QLbaitest";
 import Themmoibaitest from "./QLBaitest/ThemBaiTest";
 
@@ -41,7 +49,7 @@ export default function Admin() {
         <Link to="/profile">Hồ sơ</Link>
       </Menu.Item>
       <Menu.Item>
-        <Link to="/" onClick={() => {}}>
+        <Link to="/" onClick={() => { }}>
           Đăng xuất
         </Link>
       </Menu.Item>
@@ -50,13 +58,9 @@ export default function Admin() {
   return (
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className="logo">
+        <div className="logo" >
           <Link to="/admin">
-            <img
-              src={collapsed ? logoa : logo}
-              alt=""
-              style={{ width: "100%" }}
-            />
+            <img src={collapsed ? logoa : logo} alt="" />
           </Link>
         </div>
         <Menu
@@ -97,9 +101,7 @@ export default function Admin() {
                       src={USER}
                       width={40}
                       alt={"Binh"}
-                      style={{ verticalAlign: "middle", borderRadius: "50%" }}
-                    />
-                    &nbsp;&nbsp;
+                    />{" "}
                     {"user.hoTen"}
                   </span>
                 </a>
@@ -118,13 +120,14 @@ export default function Admin() {
         >
           {/* {//componentsSwitch(selectedMenuItem)} */}
           <Routes>
-            <Route path="quan-li-vi-tri" element={<QLViTri />} />
-            <Route path="quan-li-bai-test" element={<QLBaitest />} />
-            {/* <Route path="quan-li-bai-test/tao-moi" element={<Themmoibaitest />} /> */}
-            <Route
-              path="quan-li-bai-test/:pageType/:id?"
-              element={<Themmoibaitest />}
-            />
+          <Route path="quan-li-vi-tri" element={<QLViTri />} />
+            <Route path="login" element={<Login />} />
+            <Route path="dottuyendung/create" element={<TaoDotTuyenDung />} />
+            <Route path="dottuyendung/chitiet/:idDotTuyenDung" element={<ChiTietDotTuyenDung />} />
+            <Route path="dottuyendung/edit/:idDotTuyenDung" element={<EditDotTuyenDung/>} />
+            <Route path="dottuyendung" element={<DanhSachDotTuyenDung />} />
+            <Route path="ungvien" element={<DanhSachUngVien />} />
+            <Route path="test" element={<Test />} />
           </Routes>
         </Content>
       </Layout>

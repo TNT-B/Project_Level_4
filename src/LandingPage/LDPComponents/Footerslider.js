@@ -11,13 +11,14 @@ const contentStyle = {
   textAlign: 'center',
   background: 'rgba(19, 38, 71, 1)',
   paddingTop:'50px',
+  dotscolor:'white',
 };
 const Footerslider = () => {
   const { Text, Paragraph } = Typography
   return (
     <div>
       <Title style={{color:"red"}}> allo</Title>
-    <Carousel draggable autoplay>
+    <Carousel draggable autoplay dots={true}>
       <div>
         <Row style={contentStyle} >
           <Col span={6} style={{ left: '300px' }}>
@@ -41,8 +42,9 @@ const Footerslider = () => {
           <Col span={12} style={{ left: '300px' }}>
             <Paragraph style={{ color: 'white', fontSize: 18, paddingTop: '100px' }} >
               Đây thật sự là vinh dự khi được làm việc tại đây.
-            
             </Paragraph>
+            <Paragraph style={{ color: 'white', fontSize: 18 }}> DEPOPS </Paragraph>
+            <Paragraph style={{ color: 'white', fontSize: 18 }}> Babel Zelegenr </Paragraph>
           </Col>
         </Row>
       </div>

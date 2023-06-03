@@ -24,4 +24,7 @@ export const apiConstants = {
 
     // quản lý ứng viên
     UNG_TUYEN: `${API_HOST}/ungvien/`,
+
+    // quản lý đợt tuyển dụng
+    CHI_TIET_DOT_TUYEN_DUNG_GAN_NHAT: `${API_HOST}/dottuyendung/gannhat`,
 };

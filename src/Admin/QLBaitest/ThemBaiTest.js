@@ -43,6 +43,7 @@ const Themmoibaitest = () => {
             ...baitest,
             danhSachCauHoi: baitest.cau_hoi
         })
+        console.log(baitest);
     }
     const postBaiTest = async () => {
         const danhSachCauHoi = form.getFieldValue('danhSachCauHoi') ?? [];
@@ -117,7 +118,7 @@ const Themmoibaitest = () => {
                 }}>
                 <Row>
                     <Col span={24}>
-                        <h1 style={{ fontSize: "25px", color: "#191970", marginBottom: "40px", marginTop: "10px" }}>{pageType.chiTiet == currentPageType ? 'CHI TIẾT BÀI KIỂM TRA' : 'TẠO MỚI BÀI KIỂM TRA'} {console.log(currentPageType)}</h1>
+                        <h1 style={{ fontSize: "25px", color: "#191970", marginBottom: "40px", marginTop: "10px" }}>{pageType.chiTiet == currentPageType ? 'CHI TIẾT BÀI KIỂM TRA' : 'TẠO MỚI BÀI KIỂM TRA'}</h1>
                     </Col>
                 </Row>
                 <Row>
@@ -169,19 +170,24 @@ const Themmoibaitest = () => {
                             {(fields, { remove }) => (
                                 <Row>
                                     <Form.Item name={'danhSachCauHoi'} hidden ></Form.Item>
-                                    {danhsachcauhoi && danhsachcauhoi.map((cauhoi, index) => <Row>
+
+                                    {danhsachcauhoi && danhsachcauhoi.map((cauhoi, index) => 
+                                    <Row>
+                                        
                                         <Col span={24}>
                                             <b>CÂU HỎI SỐ {index + 1}</b>
+                                            
                                         </Col>
                                         <Col span={24}>
                                             <Form.Item
-                                                // label="Nhập nội dung câu hỏi" 
+                                                {...cauhoi} 
                                                 name={['danhSachCauHoi', index, 'noi_dung']}
                                                 rules={[{
                                                     required: true,
                                                     message: 'Nội dung câu hỏi không được để trống'
                                                 },]}>
                                                 <TextArea placeholder="nhập nội dung câu hỏi" />
+                                                {/* <MinusCircleOutlined onClick={() => remove(cauhoi.name)} /> */}
                                             </Form.Item>
                                         </Col>
                                         <Col span={24}>
@@ -213,14 +219,14 @@ const Themmoibaitest = () => {
                                                         </Col>)}
                                                     </Row>
                                                 </Checkbox.Group>
-                                                {/* <MinusCircleOutlined onClick={() => remove(danhSachCauHoi)} /> */}
+                                                
                                             </Form.Item>
-
                                         </Col>
                                     </Row>)}
                                     <Col span={24}>
                                         <Button type="dashed" onClick={taoCauHoi} name='danhSachCauHoi' block icon={<PlusOutlined />}> Tạo mới câu hỏi </Button>
                                     </Col>
+                                    
                                     <Col span={6}>
                                         {pageType.chiTiet == currentPageType ?
                                             <Button

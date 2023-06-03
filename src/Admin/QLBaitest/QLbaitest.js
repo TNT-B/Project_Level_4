@@ -156,14 +156,14 @@ const QLBaitest = () => {
             <Input placeholder="Tìm kiếm" onChange={(e) => setKeyword(e.target.value)} style={{ width: 300, }} />
           </Form.Item>
         </Col>
-        <Col span={6}>
+        {/* <Col span={6}>
           <Form.Item className="form-select" label="Vị trí tuyển dụng" labelCol={{
             xs: { span: 24 },
             sm: { span: 8 },
           }}>
             <Select placeholder="Nhập vị trí" options={danhsachvitri} style={{ width: 300, }} />
           </Form.Item>
-        </Col>
+        </Col> */}
         <Col span={2}>
           <Form.Item className="form-button" wrapperCol={{
             offset: 2,

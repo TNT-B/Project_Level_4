@@ -4,11 +4,15 @@ import React from 'react';
 import Aboutus from './LDPComponents/Aboutus';
 import Listtuyendung from './ViTriTuyenDung/Listtuyendung';
 import Footerslider from './LDPComponents/Footerslider';
+import { Link } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
+import FooterLDP from './LDPComponents/FooterLDP';
+import Menutop from './LDPComponents/Menutop';
 
 
 const LandingPage = () => {
     const { Header, Content, Footer } = Layout;
-    const {Title} =Typography;
+    const { Title } = Typography;
     const {
         token: { colorBgContainer },
     } = theme.useToken();
@@ -16,10 +20,11 @@ const LandingPage = () => {
         <Layout className="layout">
             <Header>
                 {/* <div className="logo" /> */}
-                {/* <Menutop/> */}
+                <Menutop/>
             </Header>
             <Content>
                 <div
+                id='top'
                     className="site-layout-content"
                     style={{
                         background: colorBgContainer,
@@ -45,7 +50,11 @@ const LandingPage = () => {
                             <Button
                                 className="Buttonchitiet"
                                 align="center">
-                                Xem ngay
+                                <HashLink
+                                    to='/#vi-tri-tuyen-dung'
+                                    scroll={(el) => el.scrollIntoView({ behavior: 'auto', block: 'end' })}>
+                                    Xem ngay
+                                </HashLink>
                             </Button>
                         </Row>
                     </Row>
@@ -54,13 +63,7 @@ const LandingPage = () => {
                     <Footerslider />
                 </div>
             </Content>
-            <Footer
-                style={{
-                    textAlign: 'center',
-                    theme: "dark"
-                }}
-            >
-            </Footer>
+            <FooterLDP/>
         </Layout>
 
     );
